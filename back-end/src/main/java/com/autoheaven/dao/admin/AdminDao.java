@@ -25,4 +25,9 @@ public class AdminDao {
 		return productDao.getAllProducts();
 	}
 
+	public List<Product> deleteProduct(Integer id) {
+		entityManager.remove(entityManager.find(Product.class, id)); 
+		return productDao.getAllProducts();
+	}
+
 }

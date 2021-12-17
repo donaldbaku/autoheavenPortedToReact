@@ -16,8 +16,8 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import Actions from '../dataStorage/Actions';
 
-const AddProduct = (props) => {
-	const {} = props;
+const EditProduct = (props) => {
+	const { editableProduct } = props;
 
 	const handleImageUpload = (event) => {
 		event.preventDefault();
@@ -44,10 +44,25 @@ const AddProduct = (props) => {
 						<Grid container spacing={2}>
 							<Grid item xs={12} sm={6} md={3}>
 								<TextField
+									fullWidth
+									autoFocus
+									disabled
+									id='name'
+									label='ID'
+									value={editableProduct.productId}
+									onChange={(event) =>
+										props.updateProduct('productName', event.target.value)
+									}
+								/>
+							</Grid>
+
+							<Grid item xs={12} sm={6} md={3}>
+								<TextField
 									required
 									fullWidth
 									id='name'
 									label='Full Name'
+									value={editableProduct.productName}
 									onChange={(event) =>
 										props.updateProduct('productName', event.target.value)
 									}
@@ -59,6 +74,7 @@ const AddProduct = (props) => {
 									fullWidth
 									id='manufacturer'
 									label='Manufacturer'
+									value={editableProduct.productManufacturer}
 									onChange={(event) =>
 										props.updateProduct(
 											'productManufacturer',
@@ -73,6 +89,7 @@ const AddProduct = (props) => {
 									fullWidth
 									id='model'
 									label='Model'
+									value={editableProduct.productModel}
 									onChange={(event) =>
 										props.updateProduct('productModel', event.target.value)
 									}
@@ -84,6 +101,7 @@ const AddProduct = (props) => {
 									fullWidth
 									id='engine'
 									label='Engine'
+									value={editableProduct.productEngine}
 									onChange={(event) =>
 										props.updateProduct('productEngine', event.target.value)
 									}
@@ -95,6 +113,7 @@ const AddProduct = (props) => {
 									fullWidth
 									id='transmission'
 									label='Transmission'
+									value={editableProduct.productTransmission}
 									onChange={(event) =>
 										props.updateProduct(
 											'productTransmission',
@@ -109,6 +128,7 @@ const AddProduct = (props) => {
 									fullWidth
 									id='bodyType'
 									label='Body Type'
+									value={editableProduct.productBodyType}
 									onChange={(event) =>
 										props.updateProduct('productBodyType', event.target.value)
 									}
@@ -120,6 +140,7 @@ const AddProduct = (props) => {
 									fullWidth
 									id='description'
 									label='Description'
+									value={editableProduct.productDescription}
 									onChange={(event) =>
 										props.updateProduct(
 											'productDescription',
@@ -135,6 +156,7 @@ const AddProduct = (props) => {
 									type='number'
 									id='price'
 									label='Price'
+									value={editableProduct.productPrice}
 									onChange={(event) =>
 										props.updateProduct('productPrice', event.target.value)
 									}
@@ -147,6 +169,7 @@ const AddProduct = (props) => {
 									type='number'
 									id='year'
 									label='Year'
+									value={editableProduct.productYear}
 									onChange={(event) =>
 										props.updateProduct('productYear', event.target.value)
 									}
@@ -158,13 +181,14 @@ const AddProduct = (props) => {
 									fullWidth
 									id='status'
 									label='Status'
+									value={editableProduct.productStatus}
 									onChange={(event) =>
 										props.updateProduct('productStatus', event.target.value)
 									}
 								/>
 							</Grid>
 
-							<Grid item xs={12} sm={12} md={6}>
+							<Grid item xs={12} sm={6} md={3}>
 								<FilledInput
 									required
 									fullWidth
@@ -173,6 +197,7 @@ const AddProduct = (props) => {
 									accept='image/*'
 									id='image'
 									label='Images'
+									value={editableProduct.productImage}
 									onChange={(event) => handleImageUpload(event)}
 								/>
 							</Grid>
@@ -183,9 +208,9 @@ const AddProduct = (props) => {
 							fullWidth
 							variant='contained'
 							sx={{ mt: 3, mb: 2 }}
-							onClick={() => props.saveNewProduct()}
+							onClick={() => props.updateProductREST()}
 						>
-							Save new Product
+							Save Edited Product
 						</Button>
 					</Box>
 				</Box>
@@ -195,16 +220,18 @@ const AddProduct = (props) => {
 };
 
 const mapStateToProps = (state) => {
-	return {};
+	return {
+		editableProduct: state.editableProduct,
+	};
 };
 
 const mapDispatchToProps = (dispatch) => {
 	return {
 		updateProduct: (field, value) =>
-			dispatch(Actions.updateNewProduct(field, value)),
+			dispatch(Actions.updateEditedProduct(field, value)),
 		getAllProducts: () => dispatch(Actions.getAllProducts()),
-		saveNewProduct: () => dispatch(Actions.saveNewProduct()),
+		updateProductREST: () => dispatch(Actions.updateProduct()),
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddProduct);
+export default connect(mapStateToProps, mapDispatchToProps)(EditProduct);

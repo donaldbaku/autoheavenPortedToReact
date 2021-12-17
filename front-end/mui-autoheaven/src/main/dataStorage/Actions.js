@@ -6,6 +6,10 @@ const EnumDispatcherAction = Object.freeze({
 	GET_ALL_PRODUCTS: 'EnumDispatcherAction.UPDATE_REDUCER',
 	UPDATE_NEW_PRODUCT: 'EnumDispatcherAction.UPDATE_NEW_PRODUCT',
 	GET_PRODUCT: 'EnumDispatcherAction.GET_PRODUCT',
+	SET_ADMIN_TAB: 'EnumDispatcherAction.SET_ADMIN_TAB',
+	SET_NAV_TAB: 'EnumDispatcherAction.SET_NAV_TAB',
+	SET_EDIT_PRODUCT: 'EnumDispatcherAction.SET_EDIT_PRODUCT',
+	UPDATE_EDIT_PRODUCT: 'EnumDispatcherAction.UPDATE_EDIT_PRODUCT',
 });
 export { EnumDispatcherAction };
 class Actions extends React.Component {
@@ -43,10 +47,44 @@ class Actions extends React.Component {
 			});
 		};
 	}
+	updateEditedProduct(field, value) {
+		return (dispatch, getState) => {
+			let editableProduct = getState().editableProduct;
+			editableProduct = update(editableProduct, {
+				[field]: { $set: value },
+			});
+			dispatch({
+				type: EnumDispatcherAction.UPDATE_EDIT_PRODUCT,
+				result: editableProduct,
+			});
+		};
+	}
 
 	saveNewProduct() {
 		return (dispatch, getState) => {
 			let product = getState().newProduct;
+			axios
+				.request({
+					method: 'POST',
+					url: '/admin/addProduct',
+					data: JSON.stringify(product),
+					mode: 'cors',
+					headers: {
+						'Access-Control-Allow-Origin': true,
+						'content-type': 'application/json',
+					},
+				})
+				.then((response) => {
+					dispatch({
+						type: EnumDispatcherAction.GET_ALL_PRODUCTS,
+						result: response.data,
+					});
+				});
+		};
+	}
+	updateProduct() {
+		return (dispatch, getState) => {
+			let product = getState().editableProduct;
 			axios
 				.request({
 					method: 'POST',
@@ -83,6 +121,44 @@ class Actions extends React.Component {
 				.then((response) => {
 					dispatch({
 						type: EnumDispatcherAction.GET_PRODUCT,
+						result: response.data,
+					});
+				});
+		};
+	}
+	updateAdminTab(value) {
+		return (dispatch) => {
+			dispatch({
+				type: EnumDispatcherAction.SET_ADMIN_TAB,
+				result: value,
+			});
+		};
+	}
+	setEditProduct(value) {
+		return (dispatch) => {
+			dispatch({
+				type: EnumDispatcherAction.SET_EDIT_PRODUCT,
+				result: value,
+			});
+		};
+	}
+
+	deleteProduct(id) {
+		return (dispatch) => {
+			axios
+				.request({
+					method: 'POST',
+					url: `/admin/deleteProduct`,
+					params: { id: JSON.stringify(id) },
+					mode: 'cors',
+					headers: {
+						'Access-Control-Allow-Origin': true,
+						'content-type': 'application/json',
+					},
+				})
+				.then((response) => {
+					dispatch({
+						type: EnumDispatcherAction.GET_ALL_PRODUCTS,
 						result: response.data,
 					});
 				});

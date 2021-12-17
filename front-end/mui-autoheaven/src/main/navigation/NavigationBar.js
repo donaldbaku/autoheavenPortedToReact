@@ -16,7 +16,14 @@ import DrawerForMobileView from './DrawerForMobileView';
 const NavigationBar = (props) => {
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-	const selectedTab = useLocation().pathname;
+	let selectedTab = useLocation().pathname;
+	if (
+		selectedTab != '/home' &&
+		selectedTab != '/products' &&
+		selectedTab != '/about'
+	) {
+		selectedTab = '/home';
+	}
 
 	return (
 		<>
@@ -61,6 +68,14 @@ const NavigationBar = (props) => {
 										label='About Us'
 									/>
 								</Tabs>
+								<Button
+									variant='contained'
+									LinkComponent={Link}
+									to='/admin'
+									sx={{ marginRight: '5px' }}
+								>
+									Admin
+								</Button>
 								<Button variant='contained' LinkComponent={Link} to='/login'>
 									Login
 								</Button>
