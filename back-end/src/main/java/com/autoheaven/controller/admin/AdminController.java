@@ -48,24 +48,7 @@ public class AdminController {
 		
 		return new ResponseEntity<List<Product>>(productList, HttpStatus.OK);
 	}
-	
-	@CrossOrigin
-	@PostMapping("images")
-	public void addImage(@RequestBody MultipartFile image){
-		MultipartFile myImage = image;
-		String imagesPath = "/src/main/resources/static";
-		if(myImage!=null && !myImage.isEmpty()) {
-			try {
-				myImage.transferTo(new File(imagesPath));
-			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
+
 	
 	@CrossOrigin
 	 @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
