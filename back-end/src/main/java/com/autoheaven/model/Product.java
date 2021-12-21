@@ -10,7 +10,6 @@ import java.util.List;
 @Entity
 public class Product implements Serializable {
 
-
 	private static final long serialVersionUID = 2591151653447964968L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,6 +26,7 @@ public class Product implements Serializable {
 	private String productStatus;
 	private int unitInStock;
 	private String productBodyType;
+	private String imagePath;
 	
 	@Transient
 	private MultipartFile productImage;
@@ -34,90 +34,126 @@ public class Product implements Serializable {
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private List<CartItem> cartItemList;
-	
 
+	
+	
 	public MultipartFile getProductImage() {
 		return productImage;
 	}
+
 	public void setProductImage(MultipartFile productImage) {
 		this.productImage = productImage;
 	}
+
 	public int getProductId() {
 		return productId;
 	}
+
 	public void setProductId(int productId) {
 		this.productId = productId;
 	}
+
 	public String getProductName() {
 		return productName;
 	}
+
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
+
 	public String getProductManufacturer() {
 		return productManufacturer;
 	}
+
 	public void setProductManufacturer(String productManufacturer) {
 		this.productManufacturer = productManufacturer;
 	}
+
 	public String getProductDescription() {
 		return productDescription;
 	}
+
 	public void setProductDescription(String productDescription) {
 		this.productDescription = productDescription;
 	}
+
 	public double getProductPrice() {
 		return productPrice;
 	}
+
 	public void setProductPrice(double productPrice) {
 		this.productPrice = productPrice;
 	}
+
 	public String getProductStatus() {
 		return productStatus;
 	}
+
 	public void setProductStatus(String productStatus) {
 		this.productStatus = productStatus;
 	}
+
 	public int getUnitInStock() {
 		return unitInStock;
 	}
+
 	public void setUnitInStock(int unitInStock) {
 		this.unitInStock = unitInStock;
 	}
+
 	public String getProductModel() {
 		return productModel;
 	}
+
 	public void setProductModel(String productModel) {
 		this.productModel = productModel;
 	}
+
 	public String getProductEngine() {
 		return productEngine;
 	}
+
 	public void setProductEngine(String productEngine) {
 		this.productEngine = productEngine;
 	}
+
 	public String getProductTransmission() {
 		return productTransmission;
 	}
+
 	public void setProductTransmission(String productTransmission) {
 		this.productTransmission = productTransmission;
 	}
+
 	public int getProductYear() {
 		return productYear;
 	}
+
 	public void setProductYear(int productYear) {
 		this.productYear = productYear;
 	}
+
 	public String getProductBodyType() {
 		return productBodyType;
 	}
+
 	public void setProductBodyType(String productBodyType) {
 		this.productBodyType = productBodyType;
 	}
+
 	public List<CartItem> getCartItemList() {
 		return cartItemList;
 	}
+
 	public void setCartItemList(List<CartItem> cartItemList) {
 		this.cartItemList = cartItemList;
+	}
+
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 }
