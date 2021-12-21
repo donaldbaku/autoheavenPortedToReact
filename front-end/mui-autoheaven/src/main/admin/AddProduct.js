@@ -23,8 +23,22 @@ const AddProduct = (props) => {
 		event.preventDefault();
 		let file = event.target.files[0];
 		let imageData = new FormData();
-		imageData.append('imageFile', file);
-		props.updateProduct('productImage', imageData);
+		imageData.append('file', file);
+		axios
+			.request({
+				method: 'POST',
+				url: '/admin/upload',
+				data: imageData,
+				mode: 'cors',
+				headers: {
+					'Access-Control-Allow-Origin': true,
+					'content-type': 'multipart/form-data',
+				},
+			})
+			.then((response) => {
+				props.updateProduct('productImage', event.target.files[0].name);
+			});
+
 		console.log(imageData);
 	};
 	return (
