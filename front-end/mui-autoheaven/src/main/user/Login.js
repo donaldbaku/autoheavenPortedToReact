@@ -16,8 +16,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const Login = (props) => {
-	const {} = props;
-
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);

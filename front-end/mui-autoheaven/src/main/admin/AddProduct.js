@@ -17,8 +17,6 @@ import axios from 'axios';
 import Actions from '../dataStorage/Actions';
 
 const AddProduct = (props) => {
-	const {} = props;
-
 	const handleImageUpload = (event) => {
 		event.preventDefault();
 		let file = event.target.files[0];

@@ -18,9 +18,9 @@ const NavigationBar = (props) => {
 	const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 	let selectedTab = useLocation().pathname;
 	if (
-		selectedTab != '/home' &&
-		selectedTab != '/products' &&
-		selectedTab != '/about'
+		selectedTab !== '/home' &&
+		selectedTab !== '/products' &&
+		selectedTab !== '/about'
 	) {
 		selectedTab = '/home';
 	}

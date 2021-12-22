@@ -7,9 +7,7 @@ import { Delete, Edit } from '@mui/icons-material';
 const Inventory = (props) => {
 	const { rows } = props;
 
-	rows.map((item) => {
-		item.id = item.productId;
-	});
+	rows.map((item) => (item.id = item.productId));
 	const columns = [
 		{
 			field: 'productId',

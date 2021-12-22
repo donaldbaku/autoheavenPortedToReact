@@ -8,44 +8,110 @@ import CardMedia from '@mui/material/CardMedia';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Actions from '../dataStorage/Actions';
+import audi from '../../images/1.jpg';
+
 const Featured = (props) => {
 	const { posts } = props;
 	return (
 		<>
 			<br />
 			<Grid container spacing={2}>
-				{posts.map((item) => (
-					<Grid item key={item.id} xs={12} md={6}>
-						<CardActionArea
-							LinkComponent={Link}
-							to='/viewProduct'
-							onClick={() => props.getSingleProduct(item.productId)}
-						>
-							<Card key={item.id} elevation={6} sx={{ display: 'flex' }}>
-								<CardContent sx={{ flex: 1 }}>
-									<Typography component='h2' variant='h5'>
-										{item.productName}
-									</Typography>
-									<Typography variant='subtitle1' color='text.secondary'>
-										{item.productYear}
-									</Typography>
-									<Typography variant='subtitle1' paragraph>
-										{item.productDescription}
-									</Typography>
-									<Typography variant='subtitle1' color='primary'>
-										Continue reading...
-									</Typography>
-								</CardContent>
-								<CardMedia
-									component='img'
-									sx={{ width: '45%', display: { xs: 'flex', sm: 'block' } }}
-									image={item.productImage}
-									alt={'post.imageLabel'}
-								/>
-							</Card>
-						</CardActionArea>
-					</Grid>
-				))}
+				{posts.map((item, index) =>
+					index % 2 !== 0 ? (
+						<Grid item key={item.id} xs={12} md={12}>
+							<CardActionArea
+								LinkComponent={Link}
+								to='/viewProduct'
+								onClick={() => props.getSingleProduct(item.productId)}
+							>
+								<Card key={item.id} elevation={6} sx={{ display: 'flex' }}>
+									<CardMedia
+										component='img'
+										sx={{
+											width: '60%',
+											display: { xs: 'flex', sm: 'block' },
+										}}
+										image={audi}
+										alt={'post.imageLabel'}
+									/>
+									<CardContent
+										sx={{
+											flex: 1,
+											alignSelf: 'flex-end',
+										}}
+									>
+										<Typography
+											variant='subtitle1'
+											color='text.secondary'
+											align='right'
+										>
+											<b>{item.productYear}</b>
+										</Typography>
+										<Typography variant='h4' align='right'>
+											<b>{item.productName}</b>
+										</Typography>
+
+										<Typography
+											variant='subtitle1'
+											color='green'
+											paragraph
+											align='right'
+										>
+											<b>{item.productDescription}</b>
+										</Typography>
+										<Typography
+											variant='subtitle1'
+											color='primary'
+											align='right'
+										>
+											Continue reading...
+										</Typography>
+									</CardContent>
+								</Card>
+							</CardActionArea>
+						</Grid>
+					) : (
+						<Grid item key={item.id} xs={12} md={12}>
+							<CardActionArea
+								LinkComponent={Link}
+								to='/viewProduct'
+								onClick={() => props.getSingleProduct(item.productId)}
+							>
+								<Card key={item.id} elevation={6} sx={{ display: 'flex' }}>
+									<CardContent
+										sx={{
+											flex: 1,
+											alignSelf: 'flex-end',
+										}}
+									>
+										<Typography variant='subtitle1' color='text.secondary'>
+											<b>{item.productYear}</b>
+										</Typography>
+										<Typography variant='h4'>
+											<b>{item.productName}</b>
+										</Typography>
+
+										<Typography variant='subtitle1' color='green' paragraph>
+											<b>{item.productDescription}</b>
+										</Typography>
+										<Typography variant='subtitle1' color='primary'>
+											Continue reading...
+										</Typography>
+									</CardContent>
+									<CardMedia
+										component='img'
+										sx={{
+											width: '60%',
+											display: { xs: 'flex', sm: 'block' },
+										}}
+										image={audi}
+										alt={'post.imageLabel'}
+									/>
+								</Card>
+							</CardActionArea>
+						</Grid>
+					)
+				)}
 			</Grid>
 		</>
 	);
