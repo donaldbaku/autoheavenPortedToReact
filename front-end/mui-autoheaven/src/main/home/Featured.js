@@ -8,7 +8,6 @@ import CardMedia from '@mui/material/CardMedia';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Actions from '../dataStorage/Actions';
-import audi from '../../images/1.jpg';
 
 const Featured = (props) => {
 	const { posts } = props;
@@ -24,14 +23,20 @@ const Featured = (props) => {
 								to='/viewProduct'
 								onClick={() => props.getSingleProduct(item.productId)}
 							>
-								<Card key={item.id} elevation={6} sx={{ display: 'flex' }}>
+								<Card
+									key={item.id}
+									elevation={6}
+									sx={{
+										display: { xs: 'block', md: 'flex' },
+									}}
+								>
 									<CardMedia
 										component='img'
 										sx={{
-											width: '60%',
-											display: { xs: 'flex', sm: 'block' },
+											height: '300px',
+											width: { sx: '100%', md: '60%' },
 										}}
-										image={audi}
+										image={item.productImagePath}
 										alt={'post.imageLabel'}
 									/>
 									<CardContent
@@ -77,7 +82,11 @@ const Featured = (props) => {
 								to='/viewProduct'
 								onClick={() => props.getSingleProduct(item.productId)}
 							>
-								<Card key={item.id} elevation={6} sx={{ display: 'flex' }}>
+								<Card
+									key={item.id}
+									elevation={6}
+									sx={{ display: { xs: 'block', md: 'flex' } }}
+								>
 									<CardContent
 										sx={{
 											flex: 1,
@@ -101,10 +110,10 @@ const Featured = (props) => {
 									<CardMedia
 										component='img'
 										sx={{
-											width: '60%',
-											display: { xs: 'flex', sm: 'block' },
+											height: '300px',
+											width: { sx: '100%', md: '60%' },
 										}}
-										image={audi}
+										src={item.productImagePath}
 										alt={'post.imageLabel'}
 									/>
 								</Card>

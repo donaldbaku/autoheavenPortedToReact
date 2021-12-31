@@ -33,4 +33,10 @@ public class ProductController {
         return new ResponseEntity<Product>(product, HttpStatus.OK);
     }
 
+	@CrossOrigin(origins = "*")
+    @GetMapping("/searchResults")
+    public ResponseEntity<List<Product>> getSearchResults(@RequestParam String searchData) {
+		List<Product> searchResults = productDao.getSearchResults(searchData);
+        return new ResponseEntity<List<Product>>(searchResults, HttpStatus.OK);
+    }
 }

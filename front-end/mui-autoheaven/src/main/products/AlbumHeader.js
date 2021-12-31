@@ -1,44 +1,67 @@
-const AlbumHeader = () => {
+import {
+	Typography,
+	Container,
+	Stack,
+	Box,
+	Button,
+	Card,
+	TextField,
+} from '@mui/material';
+import { connect } from 'react-redux';
+import Actions from '../dataStorage/Actions';
+
+const AlbumHeader = (props) => {
 	return (
-		<Box
-			sx={{
-				bgcolor: 'background.paper',
-				pt: 8,
-				pb: 6,
-			}}
-		>
-			<Container maxWidth='sm'>
-				<Typography
-					component='h1'
-					variant='h2'
-					align='center'
-					color='text.primary'
-					gutterBottom
-				>
-					Album layout
-				</Typography>
-				<Typography
-					variant='h5'
-					align='center'
-					color='text.secondary'
-					paragraph
-				>
-					Something short and leading about the collection below—its contents,
-					the creator, etc. Make it short and sweet, but not too short so folks
-					don&apos;t simply skip over it entirely.
-				</Typography>
+		<>
+			<Card elevation={12}>
 				<Stack
-					sx={{ pt: 4 }}
 					direction='row'
-					spacing={2}
-					justifyContent='center'
+					justifyContent='space-between'
+					alignItems='center'
+					sx={{ margin: '5px' }}
 				>
-					<Button variant='contained'>Main call to action</Button>
-					<Button variant='outlined'>Secondary action</Button>
+					<Box>
+						<Typography
+							color='green'
+							variant='button'
+							fontSize='large'
+							alignItems='baseline'
+						>
+							Browse our products
+						</Typography>
+					</Box>
+					<Box>
+						<TextField
+							label='Search'
+							size='small'
+							sx={{ marginRight: '3px' }}
+							onChange={(event) => {
+								props.updateSearchField(event.target.value);
+							}}
+						/>
+						<Button
+							variant='contained'
+							onClick={() => {
+								props.searchDatabase();
+							}}
+						>
+							Search
+						</Button>
+					</Box>
 				</Stack>
-			</Container>
-		</Box>
+			</Card>
+			<br />
+		</>
 	);
 };
 
-export default AlbumHeader;
+const mapStateToProps = (state) => {
+	return {};
+};
+
+const mapDispatchToProps = (dispatch) => ({
+	updateSearchField: (text) => dispatch(Actions.updateSearchField(text)),
+	searchDatabase: () => dispatch(Actions.searchDatabase()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AlbumHeader);

@@ -10,6 +10,7 @@ import {
 	FilledInput,
 	Tabs,
 	Tab,
+	MenuItem,
 } from '@mui/material';
 import NavigationBar from '../navigation/NavigationBar';
 import { connect } from 'react-redux';
@@ -19,13 +20,20 @@ import Actions from '../dataStorage/Actions';
 const EditProduct = (props) => {
 	const { editableProduct } = props;
 
-	const handleImageUpload = (event) => {
-		event.preventDefault();
-		let file = event.target.files[0];
+	const handleImageUpload = (files) => {
 		let imageData = new FormData();
-		imageData.append('imageFile', file);
-		props.updateProduct('productImage', imageData);
-		console.log(imageData);
+		imageData.append('upload_preset', 'ivcfqk5t');
+		imageData.append('cloud_name', 'drwqwqhmd');
+		imageData.append('file', files[0]);
+		axios
+			.post('https://api.cloudinary.com/v1_1/drwqwqhmd/image/upload', imageData)
+			.then((response) => {
+				props.updateProduct('productImagePath', response.data.url);
+				props.openNotification('success', 'Image uploaded successfully');
+			})
+			.catch((error) => {
+				props.openNotification('error', error.message);
+			});
 	};
 	return (
 		<>
@@ -177,28 +185,30 @@ const EditProduct = (props) => {
 							</Grid>
 							<Grid item xs={12} sm={6} md={3}>
 								<TextField
+									select
 									required
 									fullWidth
 									id='status'
-									label='Status'
+									label='Condition'
 									value={editableProduct.productStatus}
 									onChange={(event) =>
 										props.updateProduct('productStatus', event.target.value)
 									}
-								/>
+								>
+									<MenuItem value={'New'}>New</MenuItem>
+									<MenuItem value={'Used'}>Used</MenuItem>
+								</TextField>
 							</Grid>
 
 							<Grid item xs={12} sm={6} md={3}>
 								<FilledInput
 									required
 									fullWidth
-									variant='filled'
 									type='file'
 									accept='image/*'
 									id='image'
 									label='Images'
-									value={editableProduct.productImage}
-									onChange={(event) => handleImageUpload(event)}
+									onChange={(event) => handleImageUpload(event.target.files)}
 								/>
 							</Grid>
 						</Grid>
@@ -231,6 +241,8 @@ const mapDispatchToProps = (dispatch) => {
 			dispatch(Actions.updateEditedProduct(field, value)),
 		getAllProducts: () => dispatch(Actions.getAllProducts()),
 		updateProductREST: () => dispatch(Actions.updateProduct()),
+		openNotification: (severity, message) =>
+			dispatch(Actions.openNotification(severity, message)),
 	};
 };
 

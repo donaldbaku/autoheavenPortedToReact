@@ -41,6 +41,15 @@ public class AdminController {
 	}
 	
 	@CrossOrigin
+	@PostMapping("editProduct")
+	public ResponseEntity<List<Product>> editProduct(@RequestBody Product product){
+		
+		List<Product> productList = adminDao.editProduct(product);
+		
+		return new ResponseEntity<List<Product>>(productList, HttpStatus.OK);
+	}
+	
+	@CrossOrigin
 	@PostMapping("deleteProduct")
 	public ResponseEntity<List<Product>> deleteProduct(@RequestParam Integer id){
 		
@@ -50,26 +59,5 @@ public class AdminController {
 	}
 
 	
-	@CrossOrigin
-	 @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	    public ResponseEntity uploadFile(@RequestParam MultipartFile file) {
-	        System.out.println(String.format("File name '%s' uploaded successfully.", file.getOriginalFilename()));
-	        MultipartFile myImage = file;
-
-			String imagesPath =new File("src\\main\\resources\\images").getAbsolutePath() + "\\" + file.getOriginalFilename();
-			if(myImage!=null && !myImage.isEmpty()) {
-				try {
-					myImage.transferTo(new File(imagesPath));
-				} catch (IllegalStateException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-	        
-	        return ResponseEntity.ok().build();
-	    }
-
+	
 }

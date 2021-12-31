@@ -101,6 +101,7 @@ const Inventory = (props) => {
 					columns={columns}
 					pageSize={5}
 					rowsPerPageOptions={[5]}
+					sortModel={[{ sort: 'desc', field: 'productId' }]}
 				/>
 			</Paper>
 		</>

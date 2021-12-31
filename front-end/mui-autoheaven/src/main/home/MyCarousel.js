@@ -1,54 +1,36 @@
-import { Card, Button, Typography, Grid, Container } from '@mui/material';
-import Carousel from 'react-material-ui-carousel';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import Actions from '../dataStorage/Actions';
-import audi from '../../images/1.jpg';
+import Carousel from 'react-bootstrap/Carousel';
+import { Card } from '@mui/material';
 
 const MyCarousel = (props) => {
 	const { posts } = props;
 
 	return (
-		<Carousel
-			NextIcon={<NavigateNextIcon color='primary' />}
-			PrevIcon={<NavigateBeforeIcon color='primary' />}
-			swipe={true}
-			animation='slide'
-			duration={2000}
-			interval={10000}
-			stopAutoPlayOnHover={true}
-			indicators={false}
-		>
-			{posts.map((item, i) => (
-				<Item key={i} item={item} />
-			))}
-		</Carousel>
+		<Card elevation={12}>
+			<Carousel key={'myCarousel'}>
+				{posts.map((item) => (
+					<Carousel.Item key={posts.productId}>
+						<img
+							style={{
+								height: '75vh',
+								objectFit: 'cover',
+							}}
+							className='d-block w-100'
+							src={item.productImagePath}
+							alt='First slide'
+						/>
+						<Carousel.Caption>
+							<h3>{item.productName}</h3>
+							<p>{item.productDescription}</p>
+						</Carousel.Caption>
+					</Carousel.Item>
+				))}
+			</Carousel>
+		</Card>
 	);
 };
 
-const Item = (props) => {
-	return (
-		<Grid item xs={12} md={12}>
-			<Card sx={{ backgroundImage: `url('../../images/3.jpg')` }}>
-				<div style={{ height: '350px' }} />
-				<Grid container justifyContent='space-between' alignItems='flex-end'>
-					<Container>
-						<Grid item>
-							<Typography sx={{ color: 'white' }} variant='p'>
-								{props.item.productDescription}
-							</Typography>
-							<Typography sx={{ color: 'white' }} variant='h4'>
-								{props.item.productName}
-							</Typography>
-						</Grid>
-					</Container>
-				</Grid>
-			</Card>
-		</Grid>
-	);
-};
 const mapStateToProps = (state) => {
 	return {
 		posts: state.featuredPosts,

@@ -30,4 +30,11 @@ public class ProductDao {
 		return product;
 	}
 
+	public List<Product> getSearchResults(String searchData) {
+		List<Product> searchResults = entityManager
+				.createQuery("SELECT p from Product p WHERE p.productName LIKE :searchData")
+				.setParameter("searchData", searchData).getResultList();
+		return searchResults;
+	}
+
 }

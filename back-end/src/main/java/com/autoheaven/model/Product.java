@@ -26,23 +26,32 @@ public class Product implements Serializable {
 	private String productStatus;
 	private int unitInStock;
 	private String productBodyType;
-	private String imagePath;
-	
-	@Transient
-	private MultipartFile productImage;
+	private String productImagePath;
+	@Column(columnDefinition = "LONGTEXT")
+	private String productLongDescription;
 
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private List<CartItem> cartItemList;
 
 	
+
+
 	
-	public MultipartFile getProductImage() {
-		return productImage;
+	public String getProductLongDescription() {
+		return productLongDescription;
 	}
 
-	public void setProductImage(MultipartFile productImage) {
-		this.productImage = productImage;
+	public void setProductLongDescription(String productLongDescription) {
+		this.productLongDescription = productLongDescription;
+	}
+
+	public String getProductImagePath() {
+		return productImagePath;
+	}
+
+	public void setProductImagePath(String productImagePath) {
+		this.productImagePath = productImagePath;
 	}
 
 	public int getProductId() {
@@ -149,11 +158,4 @@ public class Product implements Serializable {
 		this.cartItemList = cartItemList;
 	}
 
-	public String getImagePath() {
-		return imagePath;
-	}
-
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
-	}
 }

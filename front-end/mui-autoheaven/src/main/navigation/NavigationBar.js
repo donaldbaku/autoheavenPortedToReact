@@ -9,8 +9,10 @@ import {
 	Tab,
 	Button,
 } from '@mui/material';
+import { green } from '@mui/material/colors';
 import { connect } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+import Actions from '../dataStorage/Actions';
 import DrawerForMobileView from './DrawerForMobileView';
 
 const NavigationBar = (props) => {
@@ -28,27 +30,35 @@ const NavigationBar = (props) => {
 	return (
 		<>
 			<Box sx={{ flexGrow: 1 }}>
-				<AppBar position='static'>
+				<AppBar color='inherit' enableColorOnDark position='static'>
 					<Toolbar>
 						{isMobile ? (
 							<>
-								<Typography variant='h5' sx={{ flexGrow: 1 }}>
-									AutoHeaven
-								</Typography>
 								<DrawerForMobileView />
+								<Button
+									color='success'
+									variant='text'
+									to='/home'
+									LinkComponent={Link}
+								>
+									<Typography variant='h5'>
+										<b>AutoHeaven</b>
+									</Typography>
+								</Button>
 							</>
 						) : (
 							<>
-								<Typography to='/home' variant='h5' sx={{ mr: 3 }}>
-									AutoHeaven
-								</Typography>
-								<Tabs
-									value={selectedTab}
-									textColor='inherit'
-									indicatorColor='secondary'
-									sx={{ flexGrow: 1 }}
-									centered
+								<Button
+									color='success'
+									variant='text'
+									to='/home'
+									LinkComponent={Link}
 								>
+									<Typography variant='h5'>
+										<b>AutoHeaven</b>
+									</Typography>
+								</Button>
+								<Tabs value={selectedTab} sx={{ flexGrow: 1 }} centered>
 									<Tab
 										to='/home'
 										value='/home'
@@ -68,15 +78,22 @@ const NavigationBar = (props) => {
 										label='About Us'
 									/>
 								</Tabs>
+
 								<Button
-									variant='contained'
+									variant='text'
+									color='inherit'
 									LinkComponent={Link}
 									to='/admin'
 									sx={{ marginRight: '5px' }}
 								>
 									Admin
 								</Button>
-								<Button variant='contained' LinkComponent={Link} to='/login'>
+								<Button
+									variant='text'
+									color='inherit'
+									LinkComponent={Link}
+									to='/login'
+								>
 									Login
 								</Button>
 							</>
@@ -90,11 +107,15 @@ const NavigationBar = (props) => {
 };
 
 const mapStateToProps = (state) => {
-	return {};
+	return {
+		darkMode: state.darkMode,
+	};
 };
 
 const mapDispatchToProps = (dispatch) => {
-	return {};
+	return {
+		toggleDarkMode: () => dispatch(Actions.toggleDarkMode()),
+	};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar);

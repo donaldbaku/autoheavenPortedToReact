@@ -17,7 +17,6 @@ import { connect } from 'react-redux';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Actions from '../dataStorage/Actions';
 import { Link } from 'react-router-dom';
-import audi from '../../images/1.jpg';
 
 const theme = createTheme();
 
@@ -38,7 +37,7 @@ const Album = (props) => {
 						<CardMedia
 							component='img'
 							height='200px'
-							image={audi}
+							image={card.productImagePath}
 							alt={card.name}
 						/>
 						<CardContent sx={{ flexGrow: 1 }}>

@@ -2,18 +2,24 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+import { Button } from '@mui/material';
 import Link from '@mui/material/Link';
+import { FormControlLabel, Switch } from '@mui/material';
+import Actions from '../dataStorage/Actions';
+import { connect } from 'react-redux';
 
 const Copyright = () => {
 	return (
-		<Typography variant='body2' color='text.secondary' align='center'>
-			{'© '}
-			<Link color='inherit' href='https://www.github.com/donaldbaku/'>
-				Donald Baku
-			</Link>{' '}
-			{new Date().getFullYear()}
-			{'.'}
-		</Typography>
+		<Button variant='text' fullWidth>
+			<Typography variant='body2' color='text.secondary' align='center'>
+				{'© '}
+				<Link color='inherit' href='https://www.github.com/donaldbaku/'>
+					Donald Baku
+				</Link>{' '}
+				{new Date().getFullYear()}
+				{'.'}
+			</Typography>
+		</Button>
 	);
 };
 
@@ -22,22 +28,25 @@ const Footer = (props) => {
 
 	return (
 		<Box component='footer' sx={{ py: 6 }}>
-			<Container maxWidth='lg'>
-				<Typography variant='h6' align='center' gutterBottom>
-					{title}
-				</Typography>
-				<Typography
-					variant='subtitle1'
-					align='center'
-					color='text.secondary'
-					component='p'
-				>
-					{description}
-				</Typography>
+			<Container maxWidth='xs'>
 				<Copyright />
+				<Button variant='text' fullWidth onClick={() => props.toggleDarkMode()}>
+					{props.darkMode ? 'Light Theme' : 'Dark Theme'}
+				</Button>
 			</Container>
 		</Box>
 	);
 };
+const mapStateToProps = (state) => {
+	return {
+		darkMode: state.darkMode,
+	};
+};
 
-export default Footer;
+const mapDispatchToProps = (dispatch) => {
+	return {
+		toggleDarkMode: () => dispatch(Actions.toggleDarkMode()),
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Footer);

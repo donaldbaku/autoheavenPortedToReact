@@ -1,6 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { SwipeableDrawer, IconButton } from '@material-ui/core';
-import { Button } from '@mui/material';
+import { SwipeableDrawer, IconButton, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 
@@ -10,7 +9,7 @@ const DrawerForMobileView = () => {
 	return (
 		<Fragment>
 			<SwipeableDrawer
-				anchor='right'
+				anchor='left'
 				open={openDrawer}
 				onOpen={() => setOpenDrawer(true)}
 				onClose={() => setOpenDrawer(false)}

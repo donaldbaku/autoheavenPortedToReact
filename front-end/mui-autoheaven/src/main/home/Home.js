@@ -15,7 +15,7 @@ const Home = (props) => {
 		<>
 			<NavigationBar />
 			<Container>
-				<MyCarousel className='mdc-elevation--z24' />
+				<MyCarousel />
 				<Featured />
 				<Footer />
 			</Container>

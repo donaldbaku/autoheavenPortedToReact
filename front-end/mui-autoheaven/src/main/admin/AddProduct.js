@@ -10,6 +10,11 @@ import {
 	FilledInput,
 	Tabs,
 	Tab,
+	Select,
+	MenuItem,
+	TextareaAutosize,
+	FormControl,
+	FormControlLabel,
 } from '@mui/material';
 import NavigationBar from '../navigation/NavigationBar';
 import { connect } from 'react-redux';
@@ -17,27 +22,20 @@ import axios from 'axios';
 import Actions from '../dataStorage/Actions';
 
 const AddProduct = (props) => {
-	const handleImageUpload = (event) => {
-		event.preventDefault();
-		let file = event.target.files[0];
+	const handleImageUpload = (files) => {
 		let imageData = new FormData();
-		imageData.append('file', file);
+		imageData.append('upload_preset', 'ivcfqk5t');
+		imageData.append('cloud_name', 'drwqwqhmd');
+		imageData.append('file', files[0]);
 		axios
-			.request({
-				method: 'POST',
-				url: '/admin/upload',
-				data: imageData,
-				mode: 'cors',
-				headers: {
-					'Access-Control-Allow-Origin': true,
-					'content-type': 'multipart/form-data',
-				},
-			})
+			.post('https://api.cloudinary.com/v1_1/drwqwqhmd/image/upload', imageData)
 			.then((response) => {
-				props.updateProduct('imagePath', event.target.files[0].name);
+				props.updateProduct('productImagePath', response.data.url);
+				props.openNotification('success', 'Image uploaded successfully');
+			})
+			.catch((error) => {
+				props.openNotification('error', error.message);
 			});
-
-		console.log(imageData);
 	};
 	return (
 		<>
@@ -126,7 +124,7 @@ const AddProduct = (props) => {
 									}
 								/>
 							</Grid>
-							<Grid item xs={12} sm={6} md={3}>
+							<Grid item xs={12} sm={6} md={6}>
 								<TextField
 									required
 									fullWidth
@@ -159,6 +157,7 @@ const AddProduct = (props) => {
 									type='number'
 									id='year'
 									label='Year'
+									placeholder={new Date().getFullYear()}
 									onChange={(event) =>
 										props.updateProduct('productYear', event.target.value)
 									}
@@ -166,26 +165,57 @@ const AddProduct = (props) => {
 							</Grid>
 							<Grid item xs={12} sm={6} md={3}>
 								<TextField
+									select
 									required
 									fullWidth
 									id='status'
-									label='Status'
+									label='Condition'
 									onChange={(event) =>
 										props.updateProduct('productStatus', event.target.value)
+									}
+								>
+									<MenuItem value={'New'}>New</MenuItem>
+									<MenuItem value={'Used'}>Used</MenuItem>
+								</TextField>
+							</Grid>
+							<Grid item xs={12} sm={6} md={3}>
+								<TextField
+									required
+									fullWidth
+									type='number'
+									id='unitsInStock'
+									label='Units to add'
+									placeholder='1'
+									onChange={(event) =>
+										props.updateProduct('unitInStock', event.target.value)
+									}
+								/>
+							</Grid>
+							<Grid item xs={12} sm={9}>
+								<TextField
+									required
+									fullWidth
+									multiline
+									id='longDescription'
+									label='Long Description'
+									onChange={(event) =>
+										props.updateProduct(
+											'productLongDescription',
+											event.target.value
+										)
 									}
 								/>
 							</Grid>
 
-							<Grid item xs={12} sm={12} md={6}>
+							<Grid item xs={12} sm={6} md={3}>
 								<FilledInput
 									required
 									fullWidth
-									variant='filled'
 									type='file'
 									accept='image/*'
 									id='image'
 									label='Images'
-									onChange={(event) => handleImageUpload(event)}
+									onChange={(event) => handleImageUpload(event.target.files)}
 								/>
 							</Grid>
 						</Grid>
