@@ -39,7 +39,7 @@ const reducer = (state = defaultState, action) => {
 		case EnumDispatcherAction.UPDATE_SEARCH_FIELD:
 			return update(state, { searchData: { $set: action.result } });
 		case EnumDispatcherAction.SEARCH_RESULTS:
-			return update(state, { searchResults: { $set: action.result } });
+			return update(state, { featuredPosts: { $set: action.result } });
 		case EnumDispatcherAction.CLOSE_NOTIFICATION:
 			return update(state, {
 				notification: {

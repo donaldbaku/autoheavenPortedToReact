@@ -32,8 +32,8 @@ public class ProductDao {
 
 	public List<Product> getSearchResults(String searchData) {
 		List<Product> searchResults = entityManager
-				.createQuery("SELECT p from Product p WHERE p.productName LIKE :searchData")
-				.setParameter("searchData", searchData).getResultList();
+				.createQuery("SELECT p from Product p WHERE LOWER(p.productName) LIKE :searchData")
+				.setParameter("searchData", "%"+searchData.toLowerCase()+"%").getResultList();
 		return searchResults;
 	}
 

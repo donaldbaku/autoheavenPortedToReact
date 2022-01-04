@@ -25,7 +25,7 @@ const Featured = (props) => {
 							>
 								<Card
 									key={item.id}
-									elevation={6}
+									elevation={12}
 									sx={{
 										display: { xs: 'block', md: 'flex' },
 									}}
@@ -84,7 +84,7 @@ const Featured = (props) => {
 							>
 								<Card
 									key={item.id}
-									elevation={6}
+									elevation={12}
 									sx={{ display: { xs: 'block', md: 'flex' } }}
 								>
 									<CardContent

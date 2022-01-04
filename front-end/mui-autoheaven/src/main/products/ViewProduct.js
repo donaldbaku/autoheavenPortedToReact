@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import { Button, Card, CardMedia } from '@mui/material';
+import { Button, Card, CardContent, CardMedia } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { connect } from 'react-redux';
@@ -19,118 +19,221 @@ const ViewProduct = (props) => {
 			<NavigationBar />
 			<Container>
 				<Grid container spacing={2}>
-					<Grid item xs={12} sm={12} md={8}>
+					<Grid item xs={12}>
+						<Card elevation={24}>
+							<Container>
+								<Typography variant='h4' color='green'>
+									<b>{product.productName}</b>
+								</Typography>
+								<Typography variant='h6' color='gray'>
+									{product.productDescription}
+								</Typography>
+							</Container>
+						</Card>
+					</Grid>
+					<Grid item>
 						<Grid item>
-							<Paper elevation={12}>
-								<Container>
-									<Typography variant='h4' color='green'>
-										<b>{product.productName}</b>
-									</Typography>
-
-									<Typography variant='h6' color='gray'>
-										{product.productDescription}
-									</Typography>
-								</Container>
-							</Paper>
-						</Grid>
-						<br />
-						<Grid item elevation={12}>
-							{/* <Card
+							<Card
+								key={product.id}
 								elevation={12}
 								sx={{
-									height: '100%',
-									display: 'flex',
-									flexDirection: 'column',
+									display: { xs: 'block', md: 'flex' },
 								}}
 							>
 								<CardMedia
 									component='img'
-									height='400px'
-									image={audi}
-									alt={'card.name'}
+									sx={{
+										height: '500px',
+										width: { sx: '100%', md: '70%' },
+									}}
+									image={product.productImagePath}
+									alt={'post.imageLabel'}
 								/>
-							</Card> */}
-							<Card elevation={12}>
-								<Carousel>
-									<Carousel.Item>
-										<img
-											className='d-block w-100'
-											src={product.productImagePath}
-											alt='First slide'
-										/>
-									</Carousel.Item>
-								</Carousel>
+								<CardContent
+									sx={{
+										flex: 1,
+										alignSelf: 'flex-end',
+									}}
+								>
+									<Grid
+										container
+										spacing={2}
+										justifyContent='center'
+										alignItems='flex-end'
+									>
+										<Grid item>
+											<Card elevation={12}>
+												<Typography
+													variant='h6'
+													color='green'
+													sx={{ margin: '10px' }}
+												>
+													<b>{product.productManufacturer}</b>
+												</Typography>
+											</Card>
+										</Grid>
+										<Grid item>
+											<Card elevation={12}>
+												<Typography
+													variant='h5'
+													color='green'
+													sx={{ margin: '10px' }}
+												>
+													<b>{product.productModel}</b>
+												</Typography>
+											</Card>
+										</Grid>
+										<Grid item>
+											<Card elevation={12}>
+												<Typography
+													variant='body1'
+													color='green'
+													sx={{ margin: '10px' }}
+												>
+													<b>{product.productEngine}</b>
+												</Typography>
+											</Card>
+										</Grid>
+										<Grid item>
+											<Card elevation={12}>
+												<Typography
+													variant='body1'
+													color='green'
+													sx={{ margin: '10px' }}
+												>
+													<b>{product.productTransmission}</b>
+												</Typography>
+											</Card>
+										</Grid>
+										<Grid item>
+											<Card elevation={12}>
+												<Typography
+													variant='body1'
+													color='green'
+													sx={{ margin: '10px' }}
+												>
+													<b>{product.productBodyType}</b>
+												</Typography>
+											</Card>
+										</Grid>
+										<Grid item>
+											<Card elevation={12}>
+												<Typography
+													variant='body1'
+													color='green'
+													sx={{ margin: '10px' }}
+												>
+													{'Starting from: '}
+													<b>{'€ ' + product.productPrice}</b>
+												</Typography>
+											</Card>
+										</Grid>
+										<Grid item>
+											<Card elevation={12}>
+												<Typography
+													variant='body1'
+													color='green'
+													sx={{ margin: '10px' }}
+												>
+													{'Produced in '}
+													<b>{product.productYear}</b>
+												</Typography>
+											</Card>
+										</Grid>
+										<Grid item>
+											<Card elevation={12}>
+												<Typography
+													variant='body1'
+													color='green'
+													sx={{ margin: '10px' }}
+												>
+													{'Condition: '} <b>{product.productStatus}</b>
+												</Typography>
+											</Card>
+										</Grid>
+										<Grid item>
+											<Card elevation={12}>
+												<Typography
+													variant='body1'
+													color='green'
+													sx={{ margin: '10px' }}
+												>
+													<b>{product.unitInStock}</b>
+													{' units left in stock'}
+												</Typography>
+											</Card>
+										</Grid>
+										<Grid item xs={12}>
+											<Button variant='contained' fullWidth color='success'>
+												Add to Cart
+											</Button>
+										</Grid>
+									</Grid>
+								</CardContent>
 							</Card>
 						</Grid>
 					</Grid>
-					<Grid item xs={12} sm={12} md={4}>
-						<Grid item key={product.productDescription}>
-							<Paper elevation={12}>
-								<Container>
-									<br />
 
-									<Typography variant='h6'>
-										<b>General Specifications</b>
-									</Typography>
-
-									<hr />
-									<Grid container>
-										<Grid item xs={6} sm={6} md={6}>
-											<Typography variant='h6'>Manufacturer:</Typography>
-											<Typography variant='h6'>Model:</Typography>
-											<Typography variant='h6'>Engine:</Typography>
-											<Typography variant='h6'>Transmission:</Typography>
-											<Typography variant='h6'>Body Type:</Typography>
-											<Typography variant='h6'>Price:</Typography>
-											<Typography variant='h6'>Year:</Typography>
-											<Typography variant='h6'>Condition:</Typography>
-											<Typography variant='h6'>Units in stock:</Typography>{' '}
-										</Grid>
-										<Grid item xs={6} sm={6} md={6}>
-											<Typography variant='h6' color='green'>
-												<b>{product.productManufacturer}</b>
-											</Typography>
-											<Typography variant='h6' color='green'>
-												<b>{product.productModel}</b>
-											</Typography>
-											<Typography variant='h6' color='green'>
-												<b>{product.productEngine}</b>
-											</Typography>
-											<Typography variant='h6' color='green'>
-												<b>{product.productTransmission}</b>
-											</Typography>
-											<Typography variant='h6' color='green'>
-												<b>{product.productBodyType}</b>
-											</Typography>
-											<Typography variant='h6' color='green'>
-												<b>{'€ ' + product.productPrice}</b>
-											</Typography>
-											<Typography variant='h6' color='green'>
-												<b>{product.productYear}</b>
-											</Typography>
-											<Typography variant='h6' color='green'>
-												<b>{product.productStatus}</b>
-											</Typography>
-											<Typography variant='h6' color='green'>
-												<b>{product.unitInStock}</b>
-											</Typography>{' '}
-										</Grid>
-									</Grid>
-									<br />
-									<br />
-								</Container>
-							</Paper>
-						</Grid>
-						<br />
-						<Paper elevation={6}>
-							<Button variant='contained' fullWidth color='success'>
-								Add to Cart
-							</Button>
+					<Grid item xs={12}>
+						<Paper elevation={24}>
+							<Container sx={{ paddingTop: '10px', paddingBottom: '10px' }}>
+								<Typography variant='h5' color='gray'>
+									{'Overview'}
+								</Typography>
+								<hr />
+								<Typography variant='h6' color='gray'>
+									{product.longDescription}
+								</Typography>
+							</Container>
 						</Paper>
 					</Grid>
-					<Grid item>
-						<Card elevation={12}>
-							<Container>{product.productLongDescription}</Container>
+
+					<Grid item xs={12} sm={6} md={6}>
+						<Card
+							elevation={12}
+							sx={{
+								height: '100%',
+								display: 'flex',
+								flexDirection: 'column',
+							}}
+						>
+							<CardMedia
+								component='img'
+								height='300px'
+								image={product.interiorImagePath}
+								alt={'interior image'}
+							/>
+							<CardContent sx={{ flexGrow: 1 }}>
+								<Typography gutterBottom variant='h5' component='h2'>
+									Interior, Comfort, and Cargo
+								</Typography>
+								<hr />
+								<Typography>{product.interiorDescription}</Typography>
+							</CardContent>
+						</Card>
+					</Grid>
+					<Grid item xs={12} sm={6} md={6}>
+						<Card
+							elevation={12}
+							sx={{
+								height: '100%',
+								display: 'flex',
+								flexDirection: 'column',
+							}}
+						>
+							<CardMedia
+								component='img'
+								height='300px'
+								image={product.exteriorImagePath}
+								alt={'exterior image'}
+							/>
+							<CardContent sx={{ flexGrow: 1 }}>
+								<Typography gutterBottom variant='h5' component='h2'>
+									Engine, Transmission, and Performance
+								</Typography>
+								<hr />
+								<Typography>{product.exteriorDescription}</Typography>
+							</CardContent>
 						</Card>
 					</Grid>
 				</Grid>

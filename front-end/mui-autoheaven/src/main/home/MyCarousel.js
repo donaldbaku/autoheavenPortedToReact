@@ -7,7 +7,7 @@ const MyCarousel = (props) => {
 	const { posts } = props;
 
 	return (
-		<Card elevation={12}>
+		<Card elevation={24}>
 			<Carousel key={'myCarousel'}>
 				{posts.map((item) => (
 					<Carousel.Item key={posts.productId}>

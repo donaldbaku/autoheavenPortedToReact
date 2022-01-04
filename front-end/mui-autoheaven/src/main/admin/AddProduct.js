@@ -37,6 +37,42 @@ const AddProduct = (props) => {
 				props.openNotification('error', error.message);
 			});
 	};
+	const handleInteriorImageUpload = (files) => {
+		let imageData = new FormData();
+		imageData.append('upload_preset', 'ivcfqk5t');
+		imageData.append('cloud_name', 'drwqwqhmd');
+		imageData.append('file', files[0]);
+		axios
+			.post('https://api.cloudinary.com/v1_1/drwqwqhmd/image/upload', imageData)
+			.then((response) => {
+				props.updateProduct('interiorImagePath', response.data.url);
+				props.openNotification(
+					'success',
+					'Interior Image uploaded successfully'
+				);
+			})
+			.catch((error) => {
+				props.openNotification('error', error.message);
+			});
+	};
+	const handleExteriorImageUpload = (files) => {
+		let imageData = new FormData();
+		imageData.append('upload_preset', 'ivcfqk5t');
+		imageData.append('cloud_name', 'drwqwqhmd');
+		imageData.append('file', files[0]);
+		axios
+			.post('https://api.cloudinary.com/v1_1/drwqwqhmd/image/upload', imageData)
+			.then((response) => {
+				props.updateProduct('exteriorImagePath', response.data.url);
+				props.openNotification(
+					'success',
+					'Exterior Image uploaded successfully'
+				);
+			})
+			.catch((error) => {
+				props.openNotification('error', error.message);
+			});
+	};
 	return (
 		<>
 			<Container component={Paper} elevation={6}>
@@ -124,20 +160,7 @@ const AddProduct = (props) => {
 									}
 								/>
 							</Grid>
-							<Grid item xs={12} sm={6} md={6}>
-								<TextField
-									required
-									fullWidth
-									id='description'
-									label='Description'
-									onChange={(event) =>
-										props.updateProduct(
-											'productDescription',
-											event.target.value
-										)
-									}
-								/>
-							</Grid>
+
 							<Grid item xs={12} sm={6} md={3}>
 								<TextField
 									required
@@ -191,18 +214,29 @@ const AddProduct = (props) => {
 									}
 								/>
 							</Grid>
+							<Grid item xs={12} sm={6}>
+								<TextField
+									required
+									fullWidth
+									id='description'
+									label='Short Description of Product'
+									onChange={(event) =>
+										props.updateProduct(
+											'productDescription',
+											event.target.value
+										)
+									}
+								/>
+							</Grid>
+
 							<Grid item xs={12} sm={9}>
 								<TextField
 									required
 									fullWidth
-									multiline
-									id='longDescription'
-									label='Long Description'
+									id='description'
+									label='Overall Description of Product'
 									onChange={(event) =>
-										props.updateProduct(
-											'productLongDescription',
-											event.target.value
-										)
+										props.updateProduct('longDescription', event.target.value)
 									}
 								/>
 							</Grid>
@@ -216,6 +250,63 @@ const AddProduct = (props) => {
 									id='image'
 									label='Images'
 									onChange={(event) => handleImageUpload(event.target.files)}
+								/>
+							</Grid>
+
+							<Grid item xs={12} sm={9}>
+								<TextField
+									required
+									fullWidth
+									multiline
+									id='intDescription'
+									label='Interior Description'
+									onChange={(event) =>
+										props.updateProduct(
+											'interiorDescription',
+											event.target.value
+										)
+									}
+								/>
+							</Grid>
+							<Grid item xs={12} sm={6} md={3}>
+								<FilledInput
+									required
+									fullWidth
+									type='file'
+									accept='image/*'
+									id='image'
+									label='Interior Image'
+									onChange={(event) =>
+										handleInteriorImageUpload(event.target.files)
+									}
+								/>
+							</Grid>
+							<Grid item xs={12} sm={9}>
+								<TextField
+									required
+									fullWidth
+									multiline
+									id='extDescription'
+									label='Exterior Description'
+									onChange={(event) =>
+										props.updateProduct(
+											'exteriorDescription',
+											event.target.value
+										)
+									}
+								/>
+							</Grid>
+							<Grid item xs={12} sm={6} md={3}>
+								<FilledInput
+									required
+									fullWidth
+									type='file'
+									accept='image/*'
+									id='image'
+									label='Interior Image'
+									onChange={(event) =>
+										handleExteriorImageUpload(event.target.files)
+									}
 								/>
 							</Grid>
 						</Grid>
@@ -246,6 +337,8 @@ const mapDispatchToProps = (dispatch) => {
 			dispatch(Actions.updateNewProduct(field, value)),
 		getAllProducts: () => dispatch(Actions.getAllProducts()),
 		saveNewProduct: () => dispatch(Actions.saveNewProduct()),
+		openNotification: (severity, message) =>
+			dispatch(Actions.openNotification(severity, message)),
 	};
 };
 

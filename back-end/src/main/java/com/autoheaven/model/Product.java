@@ -27,8 +27,14 @@ public class Product implements Serializable {
 	private int unitInStock;
 	private String productBodyType;
 	private String productImagePath;
+	private String interiorImagePath;
+	private String exteriorImagePath;
 	@Column(columnDefinition = "LONGTEXT")
-	private String productLongDescription;
+	private String longDescription;
+	@Column(columnDefinition = "LONGTEXT")
+	private String exteriorDescription;
+	@Column(columnDefinition = "LONGTEXT")
+	private String interiorDescription;
 
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
@@ -36,14 +42,44 @@ public class Product implements Serializable {
 
 	
 
-
-	
-	public String getProductLongDescription() {
-		return productLongDescription;
+	public String getLongDescription() {
+		return longDescription;
 	}
 
-	public void setProductLongDescription(String productLongDescription) {
-		this.productLongDescription = productLongDescription;
+	public void setLongDescription(String longDescription) {
+		this.longDescription = longDescription;
+	}
+
+	public String getInteriorImagePath() {
+		return interiorImagePath;
+	}
+
+	public void setInteriorImagePath(String interiorImagePath) {
+		this.interiorImagePath = interiorImagePath;
+	}
+
+	public String getExteriorImagePath() {
+		return exteriorImagePath;
+	}
+
+	public void setExteriorImagePath(String exteriorImagePath) {
+		this.exteriorImagePath = exteriorImagePath;
+	}
+
+	public String getExteriorDescription() {
+		return exteriorDescription;
+	}
+
+	public void setExteriorDescription(String exteriorDescription) {
+		this.exteriorDescription = exteriorDescription;
+	}
+
+	public String getInteriorDescription() {
+		return interiorDescription;
+	}
+
+	public void setInteriorDescription(String interiorDescription) {
+		this.interiorDescription = interiorDescription;
 	}
 
 	public String getProductImagePath() {

@@ -17,29 +17,11 @@ import {
 import Actions from './main/dataStorage/Actions';
 import Notifications from './main/Notifications';
 import { useState } from 'react';
+import Rest from './main/Loading';
+import Loading from './main/Loading';
 
 function App(props) {
-	// const [isLoading, setIsLoading] = useState(false);
-
 	axios.defaults.baseURL = 'http://localhost:8080/';
-	// axios.interceptors.request.use(
-	// 	function (config) {
-	// 		setIsLoading(true);
-	// 		return config;
-	// 	},
-	// 	function (error) {
-	// 		return Promise.reject(error);
-	// 	}
-	// );
-	// axios.interceptors.response.use(
-	// 	function (response) {
-	// 		setIsLoading(false);
-	// 		return response;
-	// 	},
-	// 	function (error) {
-	// 		return Promise.reject(error);
-	// 	}
-	// );
 	const theme = createTheme({
 		palette: props.darkMode ? dark : light,
 	});
@@ -49,9 +31,7 @@ function App(props) {
 				<CssBaseline />
 				<Navigation />
 				<Notifications />
-				<Backdrop open={false}>
-					<CircularProgress color='inherit' />
-				</Backdrop>
+				<Loading />
 			</ThemeProvider>
 		</BrowserRouter>
 	);

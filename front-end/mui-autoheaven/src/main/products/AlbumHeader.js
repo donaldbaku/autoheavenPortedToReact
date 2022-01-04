@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import Actions from '../dataStorage/Actions';
 
 const AlbumHeader = (props) => {
+	const { searchData } = props;
 	return (
 		<>
 			<Card elevation={12}>
@@ -26,6 +27,7 @@ const AlbumHeader = (props) => {
 							variant='button'
 							fontSize='large'
 							alignItems='baseline'
+							sx={{ display: { xs: 'none', sm: 'block' } }}
 						>
 							Browse our products
 						</Typography>
@@ -35,6 +37,8 @@ const AlbumHeader = (props) => {
 							label='Search'
 							size='small'
 							sx={{ marginRight: '3px' }}
+							autoFocus
+							value={searchData}
 							onChange={(event) => {
 								props.updateSearchField(event.target.value);
 							}}
@@ -56,7 +60,9 @@ const AlbumHeader = (props) => {
 };
 
 const mapStateToProps = (state) => {
-	return {};
+	return {
+		searchData: state.searchData,
+	};
 };
 
 const mapDispatchToProps = (dispatch) => ({

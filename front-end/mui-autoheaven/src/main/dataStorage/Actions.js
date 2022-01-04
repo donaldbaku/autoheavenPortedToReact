@@ -244,7 +244,7 @@ class Actions extends React.Component {
 				.request({
 					method: 'POST',
 					url: `/searchResults`,
-					params: { searchData: JSON.stringify(searchData) },
+					params: { searchData: searchData },
 					mode: 'cors',
 					headers: {
 						'Access-Control-Allow-Origin': true,
@@ -256,6 +256,9 @@ class Actions extends React.Component {
 						type: EnumDispatcherAction.SEARCH_RESULTS,
 						result: response.data,
 					});
+				})
+				.catch((error) => {
+					dispatch(this.openNotification('error', error.message));
 				});
 		};
 	}
