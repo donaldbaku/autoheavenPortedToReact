@@ -2,8 +2,17 @@ import update from 'immutability-helper';
 import { EnumDispatcherAction } from './Actions';
 
 const defaultState = {
-	darkMode: true,
-	isLoading: false,
+	appActions: {
+		darkMode: false,
+		isLoading: false,
+		user: null,
+		notification: {
+			showNotification: true,
+			severity: 'success',
+			message: 'Welcome to AutoHeaven',
+		},
+	},
+
 	searchData: '',
 	featuredPosts: [],
 	searchResults: [],
@@ -11,11 +20,6 @@ const defaultState = {
 	singleProduct: {},
 	adminSelectedTab: 'inventory',
 	editableProduct: {},
-	notification: {
-		showNotification: true,
-		severity: 'success',
-		message: 'Welcome to AutoHeaven',
-	},
 };
 
 const reducer = (state = defaultState, action) => {
@@ -33,25 +37,41 @@ const reducer = (state = defaultState, action) => {
 		case EnumDispatcherAction.SET_EDIT_PRODUCT:
 			return update(state, { editableProduct: { $set: action.result } });
 		case EnumDispatcherAction.TOGGLE_DARK_MODE:
-			return update(state, { darkMode: { $set: action.result } });
+			return update(state, {
+				appActions: { darkMode: { $set: action.result } },
+			});
 		case EnumDispatcherAction.SHOW_LOADER:
-			return update(state, { isLoading: { $set: action.result } });
+			return update(state, {
+				appActions: { isLoading: { $set: action.result } },
+			});
 		case EnumDispatcherAction.UPDATE_SEARCH_FIELD:
 			return update(state, { searchData: { $set: action.result } });
 		case EnumDispatcherAction.SEARCH_RESULTS:
 			return update(state, { featuredPosts: { $set: action.result } });
+
 		case EnumDispatcherAction.CLOSE_NOTIFICATION:
 			return update(state, {
-				notification: {
-					showNotification: { $set: false },
+				appActions: {
+					notification: {
+						showNotification: { $set: false },
+					},
 				},
 			});
 		case EnumDispatcherAction.OPEN_NOTIFICATION:
 			return update(state, {
-				notification: {
-					showNotification: { $set: true },
-					severity: { $set: action.severity },
-					message: { $set: action.message },
+				appActions: {
+					notification: {
+						showNotification: { $set: true },
+						severity: { $set: action.severity },
+						message: { $set: action.message },
+					},
+				},
+			});
+
+		case EnumDispatcherAction.SET_USER:
+			return update(state, {
+				appActions: {
+					user: { $set: action.result },
 				},
 			});
 

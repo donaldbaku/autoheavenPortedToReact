@@ -14,12 +14,44 @@ import Footer from '../navigation/Footer';
 import { Container } from '@mui/material';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Actions from '../dataStorage/Actions';
 
 const Login = (props) => {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
-		// eslint-disable-next-line no-console
+		const user = {
+			email: data.get('email'),
+			password: data.get('password'),
+		};
+		// props.logIn(user);
+		axios
+			.request({
+				method: 'GET',
+				url: `/user/login`,
+				params: {
+					email: user.email,
+					password: user.password,
+				},
+			})
+			.then((resolve) => {
+				if (Object.entries(resolve.data).length === 0) {
+					dispatch(this.props.setUser(null));
+					dispatch(this.props.openNotification('error', 'Wrong credentials'));
+				} else {
+					dispatch(this.props.setUser(resolve.data));
+					dispatch(
+						this.props.openNotification(
+							'success',
+							`Welcome ${resolve.data.firstName}`
+						)
+					);
+				}
+			})
+			.catch((error) => {
+				dispatch(this.props.openNotification('error', error.message));
+			});
+
 		console.log({
 			email: data.get('email'),
 			password: data.get('password'),
@@ -123,7 +155,11 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-	return {};
+	return {
+		setUser: (user) => dispatch(Actions.setUser(user)),
+		openNotification: (severity, message) =>
+			dispatch(Actions.openNotification(severity, message)),
+	};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

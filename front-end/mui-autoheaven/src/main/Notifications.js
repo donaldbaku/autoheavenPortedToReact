@@ -24,9 +24,9 @@ const Notifications = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-	showNotification: state.notification.showNotification,
-	severity: state.notification.severity,
-	message: state.notification.message,
+	showNotification: state.appActions.notification.showNotification,
+	severity: state.appActions.notification.severity,
+	message: state.appActions.notification.message,
 });
 const mapDispatchToProps = (dispatch) => ({
 	closeNotification: () => dispatch(Actions.closeNotification()),

@@ -22,6 +22,7 @@ import Loading from './main/Loading';
 
 function App(props) {
 	axios.defaults.baseURL = 'http://localhost:8080/';
+
 	const theme = createTheme({
 		palette: props.darkMode ? dark : light,
 	});
@@ -39,8 +40,8 @@ function App(props) {
 
 const mapStateToProps = (state) => {
 	return {
-		darkMode: state.darkMode,
-		isLoading: state.isLoading,
+		darkMode: state.appActions.darkMode,
+		isLoading: state.appActions.isLoading,
 	};
 };
 const mapDispatchToProps = (dispatch) => {

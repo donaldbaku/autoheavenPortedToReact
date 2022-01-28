@@ -31,6 +31,7 @@
 			<version>2.6.1</version>
 		</dependency>
 
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jdbc</artifactId>
@@ -91,14 +92,14 @@
 	</dependencies>
 
 	<build>
-	<resources>
-        <resource>
-            <directory>src/main/resources</directory>
-            <excludes>
-                <exclude>mui-autoheaven/node_modules/**</exclude>
-            </excludes>
-        </resource>
-    </resources>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>mui-autoheaven/node_modules/**</exclude>
+				</excludes>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

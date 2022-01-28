@@ -1,4 +1,4 @@
-package com.autoheaven.dao;
+package com.autoheaven.dao.product;
 
 import java.util.List;
 

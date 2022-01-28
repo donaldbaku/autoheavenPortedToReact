@@ -39,7 +39,7 @@ const Footer = (props) => {
 };
 const mapStateToProps = (state) => {
 	return {
-		darkMode: state.darkMode,
+		darkMode: state.appActions.darkMode,
 	};
 };
 

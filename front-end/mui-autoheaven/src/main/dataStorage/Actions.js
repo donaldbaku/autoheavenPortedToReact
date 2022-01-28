@@ -16,11 +16,13 @@ const EnumDispatcherAction = Object.freeze({
 	CLOSE_NOTIFICATION: 'EnumDispatcherAction.CLOSE_NOTIFICATION',
 	UPDATE_SEARCH_FIELD: 'EnumDispatcherAction.UPDATE_SEARCH_FIELD',
 	SEARCH_RESULTS: 'EnumDispatcherAction.SEARCH_RESULTS',
+	SHOW_LOADER: 'EnumDispatcherAction.SHOW_LOADER',
+	SET_USER: 'EnumDispatcherAction.SET_USER',
 });
 export { EnumDispatcherAction };
 class Actions extends React.Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		console.log('Actions Called');
 	}
 
@@ -195,7 +197,7 @@ class Actions extends React.Component {
 		return (dispatch, getState) => {
 			dispatch({
 				type: EnumDispatcherAction.TOGGLE_DARK_MODE,
-				result: !getState().darkMode,
+				result: !getState().appActions.darkMode,
 			});
 		};
 	}
@@ -205,7 +207,7 @@ class Actions extends React.Component {
 			console.log('Show Loader: ' + getState().isLoading);
 			dispatch({
 				type: EnumDispatcherAction.TOGGLE_LOADER,
-				result: !getState.isLoading,
+				result: !getState.appActions.isLoading,
 			});
 		};
 	}
@@ -237,6 +239,15 @@ class Actions extends React.Component {
 		};
 	}
 
+	showLoader(val) {
+		return (dispatch) => {
+			dispatch({
+				type: EnumDispatcherAction.SHOW_LOADER,
+				result: val,
+			});
+		};
+	}
+
 	searchDatabase() {
 		return (dispatch, getState) => {
 			let searchData = getState().searchData;
@@ -260,6 +271,68 @@ class Actions extends React.Component {
 				.catch((error) => {
 					dispatch(this.openNotification('error', error.message));
 				});
+		};
+	}
+
+	signUp(user) {
+		return (dispatch) => {
+			axios
+				.request({
+					method: 'POST',
+					url: `/user/signup`,
+					data: user,
+				})
+				.then((resolve) => {
+					dispatch(
+						this.openNotification(
+							'success',
+							'Account was registered successfully'
+						)
+					);
+				})
+				.catch((error) => {
+					dispatch(this.openNotification('error', error.message));
+				});
+		};
+	}
+
+	logIn(user) {
+		return (dispatch) => {
+			axios
+				.request({
+					method: 'GET',
+					url: `/user/login`,
+					params: {
+						email: user.email,
+						password: user.password,
+					},
+				})
+				.then((resolve) => {
+					if (Object.entries(resolve.data).length === 0) {
+						dispatch(this.setUser(null));
+						dispatch(this.openNotification('error', 'Wrong credentials'));
+					} else {
+						dispatch(this.setUser(resolve.data));
+						dispatch(
+							this.openNotification(
+								'success',
+								`Welcome ${resolve.data.firstName}`
+							)
+						);
+					}
+				})
+				.catch((error) => {
+					dispatch(this.openNotification('error', error.message));
+				});
+		};
+	}
+
+	setUser(user) {
+		return (dispatch) => {
+			dispatch({
+				type: EnumDispatcherAction.SET_USER,
+				result: user,
+			});
 		};
 	}
 }

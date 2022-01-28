@@ -1,4 +1,6 @@
-package com.autoheaven.controller;
+package com.autoheaven.controller.product;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,10 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.List;
-
-import com.autoheaven.dao.ProductDao;
+import com.autoheaven.dao.product.ProductDao;
 import com.autoheaven.model.Product;
+
 
 
 @RestController
@@ -38,4 +39,8 @@ public class ProductController {
 		List<Product> searchResults = productDao.getSearchResults(searchData);
         return new ResponseEntity<List<Product>>(searchResults, HttpStatus.OK);
     }
+    
+    
+    
+    
 }

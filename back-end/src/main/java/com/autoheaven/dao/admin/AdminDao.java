@@ -10,7 +10,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.autoheaven.dao.ProductDao;
+import com.autoheaven.dao.product.ProductDao;
 import com.autoheaven.model.Product;
 
 @Repository

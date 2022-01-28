@@ -5,7 +5,6 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -13,13 +12,24 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Paper } from '@mui/material';
 import Footer from '../navigation/Footer';
+import { Link } from 'react-router-dom';
+import Actions from '../dataStorage/Actions';
+import { connect } from 'react-redux';
 
-const Signup = () => {
+const Signup = (props) => {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
-		// eslint-disable-next-line no-console
+		const myUser = {
+			firstName: data.get('firstName'),
+			lastName: data.get('lastName'),
+			email: data.get('email'),
+			password: data.get('password'),
+		};
+		props.signUp(myUser);
+
 		console.log({
+			name: data.get('firstName') + ' ' + data.get('lastName'),
 			email: data.get('email'),
 			password: data.get('password'),
 		});
@@ -130,5 +140,13 @@ const Signup = () => {
 		</>
 	);
 };
+const mapStateToProps = (state) => {
+	return {};
+};
+const mapDispatchToProps = (dispatch) => {
+	return {
+		signUp: (user) => dispatch(Actions.signUp(user)),
+	};
+};
 
-export default Signup;
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

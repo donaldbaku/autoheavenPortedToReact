@@ -1,39 +1,54 @@
 package com.autoheaven.model;
 
-import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
-public class Users implements Serializable {
+public class Users {
 
     @Id
-    @GeneratedValue
-    private int userId;
-    private String username;
+    @Email
+    @NotEmpty
+    private String email;
+    @NotEmpty
+    private String firstName;
+    @NotEmpty
+    private String lastName;
+    @NotEmpty
     private String password;
+    private String authority;
     private boolean enabled;
     private int customerId;
 
+    public String getEmail() {
+		return email;
+	}
 
-    public int getUserId() {
-        return userId;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-    public String getPassword() {
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getPassword() {
         return password;
     }
 
@@ -56,4 +71,12 @@ public class Users implements Serializable {
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
+
+	public String getAuthority() {
+		return authority;
+	}
+
+	public void setAuthority(String authority) {
+		this.authority = authority;
+	}
 }
