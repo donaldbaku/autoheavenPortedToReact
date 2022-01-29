@@ -15,6 +15,7 @@ import { Container } from '@mui/material';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Actions from '../dataStorage/Actions';
+import axios from 'axios';
 
 const Login = (props) => {
 	const handleSubmit = (event) => {
@@ -36,20 +37,20 @@ const Login = (props) => {
 			})
 			.then((resolve) => {
 				if (Object.entries(resolve.data).length === 0) {
-					dispatch(this.props.setUser(null));
-					dispatch(this.props.openNotification('error', 'Wrong credentials'));
+					props.setUser(null);
+					props.openNotification('error', 'Wrong credentials');
 				} else {
-					dispatch(this.props.setUser(resolve.data));
-					dispatch(
-						this.props.openNotification(
-							'success',
-							`Welcome ${resolve.data.firstName}`
-						)
+					props.setUser(resolve.data);
+					props.history.push('/home')
+					props.openNotification(
+						'success',
+						`Welcome ${resolve.data.firstName}`
+
 					);
 				}
 			})
 			.catch((error) => {
-				dispatch(this.props.openNotification('error', error.message));
+				props.openNotification('error', error.message);
 			});
 
 		console.log({

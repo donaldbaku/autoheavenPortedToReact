@@ -15,6 +15,7 @@ import Footer from '../navigation/Footer';
 import { Link } from 'react-router-dom';
 import Actions from '../dataStorage/Actions';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 const Signup = (props) => {
 	const handleSubmit = (event) => {
@@ -26,7 +27,25 @@ const Signup = (props) => {
 			email: data.get('email'),
 			password: data.get('password'),
 		};
-		props.signUp(myUser);
+		// props.signUp(myUser);
+		axios
+			.request({
+				method: 'POST',
+				url: `/user/signup`,
+				data: myUser,
+			})
+			.then((resolve) => {
+				props.history.push('login')
+				props.openNotification(
+					'success',
+					'Account was registered successfully'
+				)
+
+			})
+			.catch((error) => {
+				props.openNotification('error', error.message);
+			});
+
 
 		console.log({
 			name: data.get('firstName') + ' ' + data.get('lastName'),
@@ -146,6 +165,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		signUp: (user) => dispatch(Actions.signUp(user)),
+		openNotification: (severity, message) =>
+			dispatch(Actions.openNotification(severity, message)),
 	};
 };
 
