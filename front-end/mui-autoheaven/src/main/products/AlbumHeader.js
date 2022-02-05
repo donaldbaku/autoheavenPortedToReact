@@ -14,7 +14,7 @@ const AlbumHeader = (props) => {
 	const { searchData } = props;
 	return (
 		<>
-			<Card elevation={12}>
+			<Card elevation={0}>
 				<Stack
 					direction='row'
 					justifyContent='space-between'
