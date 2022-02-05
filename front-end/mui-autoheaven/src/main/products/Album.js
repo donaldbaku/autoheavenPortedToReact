@@ -21,7 +21,7 @@ import { Link } from 'react-router-dom';
 const theme = createTheme();
 
 const Album = (props) => {
-	const { cards } = props;
+	const { cards, user } = props;
 	return (
 		<Grid container spacing={4}>
 			{cards.map((card) => (
@@ -55,7 +55,7 @@ const Album = (props) => {
 							>
 								View
 							</Button>
-							<Button size='small'>Add to cart</Button>
+							<Button disabled={user ? false : true} size='small'>Add to cart</Button>
 						</CardActions>
 					</Card>
 				</Grid>
@@ -67,6 +67,8 @@ const Album = (props) => {
 const mapStateToProps = (state) => {
 	return {
 		cards: state.featuredPosts,
+		user: state.appActions.user,
+
 	};
 };
 

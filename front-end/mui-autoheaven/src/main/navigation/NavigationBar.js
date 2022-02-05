@@ -16,6 +16,8 @@ import Actions from '../dataStorage/Actions';
 import DrawerForMobileView from './DrawerForMobileView';
 
 const NavigationBar = (props) => {
+
+	const { user } = props;
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 	let selectedTab = useLocation().pathname;
@@ -79,23 +81,37 @@ const NavigationBar = (props) => {
 									/>
 								</Tabs>
 
-								<Button
-									variant='text'
-									color='inherit'
-									LinkComponent={Link}
-									to='/admin'
-									sx={{ marginRight: '5px' }}
-								>
-									Admin
-								</Button>
-								<Button
-									variant='text'
-									color='inherit'
-									LinkComponent={Link}
-									to='/login'
-								>
-									Login
-								</Button>
+								{user && user.role === 'admin' &&
+									<Button
+										variant='text'
+										color='inherit'
+										LinkComponent={Link}
+										to='/admin'
+										sx={{ marginRight: '5px' }}
+									>
+										Admin
+									</Button>
+								}
+								{user ?
+									<Button
+										variant='text'
+										color='inherit'
+										LinkComponent={Link}
+										to='/home'
+										onClick={() => props.setUser(null)}
+									>
+										Logout
+									</Button>
+									:
+									<Button
+										variant='text'
+										color='inherit'
+										LinkComponent={Link}
+										to='/login'
+									>
+										Login
+									</Button>
+								}
 							</>
 						)}
 					</Toolbar>
@@ -108,13 +124,14 @@ const NavigationBar = (props) => {
 
 const mapStateToProps = (state) => {
 	return {
-		darkMode: state.darkMode,
+		user: state.appActions.user,
 	};
 };
 
 const mapDispatchToProps = (dispatch) => {
 	return {
 		toggleDarkMode: () => dispatch(Actions.toggleDarkMode()),
+		setUser: (user) => dispatch(Actions.setUser(user)),
 	};
 };
 

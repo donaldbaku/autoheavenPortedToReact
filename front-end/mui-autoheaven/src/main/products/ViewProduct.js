@@ -13,7 +13,7 @@ import Carousel from 'react-bootstrap/Carousel';
 const theme = createTheme();
 
 const ViewProduct = (props) => {
-	const { product } = props;
+	const { product, user } = props;
 	return (
 		<>
 			<NavigationBar />
@@ -164,7 +164,7 @@ const ViewProduct = (props) => {
 											</Card>
 										</Grid>
 										<Grid item xs={12}>
-											<Button variant='contained' fullWidth color='success'>
+											<Button disabled={user ? false : true} variant='contained' fullWidth color='success'>
 												Add to Cart
 											</Button>
 										</Grid>
@@ -246,6 +246,8 @@ const ViewProduct = (props) => {
 const mapStateToProps = (state) => {
 	return {
 		product: state.singleProduct,
+		user: state.appActions.user,
+
 	};
 };
 
