@@ -1,4 +1,4 @@
-import { Container } from '@mui/material';
+import { Container, Slide, SliderRoot } from '@mui/material';
 import { useEffect } from 'react';
 import Footer from '../navigation/Footer';
 import NavigationBar from '../navigation/NavigationBar';

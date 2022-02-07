@@ -37,13 +37,16 @@ public class AutoheavenSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
+		.csrf().disable()
 			.authorizeRequests()
-			.antMatchers("/allProducts","/h2-console/**").permitAll()
+			.antMatchers("/products/**","/h2-console/**", "/user/**").permitAll()
 			.antMatchers("/admin/**").hasRole(AutoheavenUserRole.ADMIN.name())
 			.anyRequest()
 			.authenticated()
 			.and()
-			.httpBasic();
+			.formLogin()
+			.loginPage("/user/login")
+			.defaultSuccessUrl("/", true);
 	}
 	
 	@Override

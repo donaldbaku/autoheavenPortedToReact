@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.autoheaven.dao.admin.AdminDao;
 import com.autoheaven.model.Product;
 
+@CrossOrigin
 @RestController
 @RequestMapping("admin")
 public class AdminController {
@@ -32,7 +33,7 @@ public class AdminController {
 	@Autowired
 	ServletContext servletContext;
 	
-	@CrossOrigin
+	
 	@PostMapping("addProduct")
 	public ResponseEntity<List<Product>> addProduct(@RequestBody Product product){
 		
@@ -41,7 +42,7 @@ public class AdminController {
 		return new ResponseEntity<List<Product>>(productList, HttpStatus.OK);
 	}
 	
-	@CrossOrigin
+
 	@PostMapping("editProduct")
 	public ResponseEntity<List<Product>> editProduct(@RequestBody Product product){
 		
@@ -50,7 +51,7 @@ public class AdminController {
 		return new ResponseEntity<List<Product>>(productList, HttpStatus.OK);
 	}
 	
-	@CrossOrigin
+
 	@PostMapping("deleteProduct")
 	public ResponseEntity<List<Product>> deleteProduct(@RequestParam Integer id){
 		
@@ -59,7 +60,7 @@ public class AdminController {
 		return new ResponseEntity<List<Product>>(productList, HttpStatus.OK);
 	}
 
-	@CrossOrigin
+
 	@GetMapping("test")
 	public ResponseEntity<String> test(){
 

@@ -29,7 +29,7 @@ class Actions extends React.Component {
 	getAllProducts() {
 		return (dispatch, getState) => {
 			axios
-				.get('/allProducts', {
+				.get('/products/allProducts', {
 					method: 'GET',
 					mode: 'cors',
 					headers: { 'Access-Control-Allow-Origin': true },
@@ -94,7 +94,9 @@ class Actions extends React.Component {
 						this.openNotification('success', 'Product was added successfully')
 					);
 					dispatch(this.updateAdminTab('inventory'));
-				});
+				}).catch(error => {
+					dispatch(this.openNotification('error', error.message))
+				})
 		};
 	}
 	updateProduct() {
@@ -123,7 +125,9 @@ class Actions extends React.Component {
 						)
 					);
 					dispatch(this.updateAdminTab('inventory'));
-				});
+				}).catch(error => {
+					dispatch(this.openNotification('error', error.message))
+				})
 		};
 	}
 
@@ -132,7 +136,7 @@ class Actions extends React.Component {
 			axios
 				.request({
 					method: 'GET',
-					url: `/getProduct`,
+					url: `/products/getProduct`,
 					params: { id: JSON.stringify(id) },
 					mode: 'cors',
 					headers: {
@@ -189,7 +193,9 @@ class Actions extends React.Component {
 							'Product with ID: ' + id + ' was deleted'
 						)
 					);
-				});
+				}).catch(error => {
+					dispatch(this.openNotification('error', error.message))
+				})
 		};
 	}
 
@@ -253,8 +259,8 @@ class Actions extends React.Component {
 			let searchData = getState().searchData;
 			axios
 				.request({
-					method: 'POST',
-					url: `/searchResults`,
+					method: 'GET',
+					url: `/products/searchResults`,
 					params: { searchData: searchData },
 					mode: 'cors',
 					headers: {
@@ -281,6 +287,11 @@ class Actions extends React.Component {
 					method: 'POST',
 					url: `/user/signup`,
 					data: user,
+					mode: 'cors',
+					headers: {
+						'Access-Control-Allow-Origin': true,
+						'content-type': 'application/json',
+					},
 				})
 				.then((resolve) => {
 					dispatch(

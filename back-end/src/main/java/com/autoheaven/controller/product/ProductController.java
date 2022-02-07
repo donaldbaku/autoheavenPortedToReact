@@ -8,25 +8,28 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.autoheaven.dao.product.ProductDao;
 import com.autoheaven.model.Product;
 
 
-
+@CrossOrigin
 @RestController
-@CrossOrigin("*")
+@RequestMapping("products")
 public class ProductController {
 	
 	@Autowired
 	private ProductDao productDao;
 
+	
     @GetMapping("/allProducts")
     public ResponseEntity<List<Product>> getAllProducts() {
         List<Product> productList = productDao.getAllProducts();
         return new ResponseEntity<List<Product>>(productList, HttpStatus.OK);
     }
+	
 	
     @GetMapping("/getProduct")
     public ResponseEntity<Product> getProduct(@RequestParam Integer id) {
@@ -34,7 +37,8 @@ public class ProductController {
         return new ResponseEntity<Product>(product, HttpStatus.OK);
     }
 
-    @PostMapping("/searchResults")
+	
+    @GetMapping("/searchResults")
     public ResponseEntity<List<Product>> getSearchResults(@RequestParam String searchData) {
 		List<Product> searchResults = productDao.getSearchResults(searchData);
         return new ResponseEntity<List<Product>>(searchResults, HttpStatus.OK);

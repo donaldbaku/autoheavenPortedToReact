@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import Actions from '../dataStorage/Actions';
 import DrawerForMobileView from './DrawerForMobileView';
+import UserMenu from './UserMenu';
 
 const NavigationBar = (props) => {
 
@@ -21,13 +22,13 @@ const NavigationBar = (props) => {
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 	let selectedTab = useLocation().pathname;
-	if (
-		selectedTab !== '/home' &&
-		selectedTab !== '/products' &&
-		selectedTab !== '/about'
-	) {
-		selectedTab = '/home';
-	}
+	// if (
+	// 	selectedTab !== '/home' &&
+	// 	selectedTab !== '/products' &&
+	// 	selectedTab !== '/about'
+	// ) {
+	// 	selectedTab = '/home';
+	// }
 
 	return (
 		<>
@@ -42,11 +43,13 @@ const NavigationBar = (props) => {
 									variant='text'
 									to='/home'
 									LinkComponent={Link}
+									sx={{flexGrow: 1}}
 								>
-									<Typography variant='h5'>
+									<Typography  variant='h5'>
 										<b>AutoHeaven</b>
 									</Typography>
 								</Button>
+								<UserMenu />
 							</>
 						) : (
 							<>
@@ -81,37 +84,8 @@ const NavigationBar = (props) => {
 									/>
 								</Tabs>
 
-								{user && user.role === 'admin' &&
-									<Button
-										variant='text'
-										color='inherit'
-										LinkComponent={Link}
-										to='/admin'
-										sx={{ marginRight: '5px' }}
-									>
-										Admin
-									</Button>
-								}
-								{user ?
-									<Button
-										variant='text'
-										color='inherit'
-										LinkComponent={Link}
-										to='/home'
-										onClick={() => props.setUser(null)}
-									>
-										Logout
-									</Button>
-									:
-									<Button
-										variant='text'
-										color='inherit'
-										LinkComponent={Link}
-										to='/login'
-									>
-										Login
-									</Button>
-								}
+								
+								<UserMenu />
 							</>
 						)}
 					</Toolbar>

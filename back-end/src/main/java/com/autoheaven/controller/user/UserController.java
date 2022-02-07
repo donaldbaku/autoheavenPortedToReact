@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.autoheaven.dao.user.UserDao;
 import com.autoheaven.model.Users;
 
-@CrossOrigin("/**")
+@CrossOrigin
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -28,7 +28,6 @@ public class UserController {
 	private UserDao userDao;
 
 	@PostMapping("/signup")
-	@CrossOrigin("http://localhost:3000")
 	public ResponseEntity<String> signUp(@RequestBody @Valid Users user) throws Exception {
 		userDao.registerUser(user);
 		return new ResponseEntity<String>(HttpStatus.OK);
@@ -36,7 +35,6 @@ public class UserController {
 	}
 
 	@GetMapping("/login")
-	@CrossOrigin("http://localhost:3000")
 	public ResponseEntity<HashMap<String, String>> login(@RequestParam String email, @RequestParam String password) {
 		HashMap<String, String> loginSuccess = userDao.loginUser(email, password);
 		return new ResponseEntity<HashMap<String, String>>(loginSuccess, HttpStatus.OK);

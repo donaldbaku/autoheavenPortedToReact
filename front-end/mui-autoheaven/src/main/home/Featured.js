@@ -8,6 +8,7 @@ import CardMedia from '@mui/material/CardMedia';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Actions from '../dataStorage/Actions';
+import { Slide } from '@mui/material';
 
 const Featured = (props) => {
 	const { posts } = props;
@@ -18,106 +19,119 @@ const Featured = (props) => {
 				{posts.map((item, index) =>
 					index % 2 !== 0 ? (
 						<Grid item key={item.id} xs={12} md={12}>
-							<CardActionArea
-								LinkComponent={Link}
-								to='/viewProduct'
-								onClick={() => props.getSingleProduct(item.productId)}
+							<Slide
+								in={true}
+								direction='right'
+								{...(true ? { timeout: 500 } : {})}
 							>
-								<Card
-									key={item.id}
-									elevation={12}
-									sx={{
-										display: { xs: 'block', md: 'flex' },
-									}}
+								<CardActionArea
+									LinkComponent={Link}
+									to='/viewProduct'
+									onClick={() => props.getSingleProduct(item.productId)}
 								>
-									<CardMedia
-										component='img'
+
+									<Card
+										key={item.id}
+										elevation={12}
 										sx={{
-											height: '300px',
-											width: { sx: '100%', md: '60%' },
-										}}
-										image={item.productImagePath}
-										alt={'post.imageLabel'}
-									/>
-									<CardContent
-										sx={{
-											flex: 1,
-											alignSelf: 'flex-end',
+											display: { xs: 'block', md: 'flex' },
 										}}
 									>
-										<Typography
-											variant='subtitle1'
-											color='text.secondary'
-											align='right'
+										<CardMedia
+											component='img'
+											sx={{
+												height: '300px',
+												width: { sx: '100%', md: '60%' },
+											}}
+											image={item.productImagePath}
+											alt={'post.imageLabel'}
+										/>
+										<CardContent
+											sx={{
+												flex: 1,
+												alignSelf: 'flex-end',
+											}}
 										>
-											<b>{item.productYear}</b>
-										</Typography>
-										<Typography variant='h4' align='right'>
-											<b>{item.productName}</b>
-										</Typography>
+											<Typography
+												variant='subtitle1'
+												color='text.secondary'
+												align='right'
+											>
+												<b>{item.productYear}</b>
+											</Typography>
+											<Typography variant='h4' align='right'>
+												<b>{item.productName}</b>
+											</Typography>
 
-										<Typography
-											variant='subtitle1'
-											color='green'
-											paragraph
-											align='right'
-										>
-											<b>{item.productDescription}</b>
-										</Typography>
-										<Typography
-											variant='subtitle1'
-											color='primary'
-											align='right'
-										>
-											Continue reading...
-										</Typography>
-									</CardContent>
-								</Card>
-							</CardActionArea>
+											<Typography
+												variant='subtitle1'
+												color='green'
+												paragraph
+												align='right'
+											>
+												<b>{item.productDescription}</b>
+											</Typography>
+											<Typography
+												variant='subtitle1'
+												color='primary'
+												align='right'
+											>
+												Continue reading...
+											</Typography>
+										</CardContent>
+									</Card>
+								</CardActionArea>
+							</Slide>
 						</Grid>
 					) : (
 						<Grid item key={item.id} xs={12} md={12}>
-							<CardActionArea
-								LinkComponent={Link}
-								to='/viewProduct'
-								onClick={() => props.getSingleProduct(item.productId)}
+							<Slide
+								in={true}
+								direction='left'
+								{...(true ? { timeout: 1000 } : {})}
 							>
-								<Card
-									key={item.id}
-									elevation={12}
-									sx={{ display: { xs: 'block', md: 'flex' } }}
+								<CardActionArea
+									LinkComponent={Link}
+									to='/viewProduct'
+									onClick={() => props.getSingleProduct(item.productId)}
 								>
-									<CardContent
-										sx={{
-											flex: 1,
-											alignSelf: 'flex-end',
-										}}
+									<Card
+										key={item.id}
+										elevation={12}
+										sx={{ display: { xs: 'block', md: 'flex' } }}
 									>
-										<Typography variant='subtitle1' color='text.secondary'>
-											<b>{item.productYear}</b>
-										</Typography>
-										<Typography variant='h4'>
-											<b>{item.productName}</b>
-										</Typography>
+										<CardContent
+											sx={{
+												flex: 1,
+												alignSelf: 'flex-end',
+											}}
+										>
+											<Typography variant='subtitle1' color='text.secondary'>
+												<b>{item.productYear}</b>
+											</Typography>
+											<Typography variant='h4'>
+												<b>{item.productName}</b>
+											</Typography>
 
-										<Typography variant='subtitle1' color='green' paragraph>
-											<b>{item.productDescription}</b>
-										</Typography>
-										<Typography variant='subtitle1' color='primary'>
-											Continue reading...
-										</Typography>
-									</CardContent>
-									<CardMedia
-										component='img'
-										sx={{
-											height: '300px',
-											width: { sx: '100%', md: '60%' },
-										}}
-										src={item.productImagePath}
-										alt={'post.imageLabel'}
-									/>
-								</Card>
-							</CardActionArea>
+											<Typography variant='subtitle1' color='green' paragraph>
+												<b>{item.productDescription}</b>
+											</Typography>
+											<Typography variant='subtitle1' color='primary'>
+												Continue reading...
+											</Typography>
+										</CardContent>
+										<CardMedia
+											component='img'
+											sx={{
+												height: '300px',
+												width: { sx: '100%', md: '60%' },
+											}}
+											src={item.productImagePath}
+											alt={'post.imageLabel'}
+										/>
+									</Card>
+								</CardActionArea>
+							</Slide>
 						</Grid>
 					)
 				)}

@@ -22,7 +22,7 @@ public class Users {
     private String password;
     private String authority;
     private boolean enabled;
-    private int customerId;
+
 
     public String getEmail() {
 		return email;
@@ -64,13 +64,7 @@ public class Users {
         this.enabled = enabled;
     }
 
-    public int getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
+  
 
 	public String getAuthority() {
 		return authority;

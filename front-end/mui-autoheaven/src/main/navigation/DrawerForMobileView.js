@@ -23,12 +23,7 @@ const DrawerForMobileView = () => {
 				<Button variant='text' to='/about' LinkComponent={Link}>
 					About Us
 				</Button>
-				<Button variant='text' LinkComponent={Link} to='/login'>
-					Login
-				</Button>
-				<Button variant='text' LinkComponent={Link} to='/admin'>
-					Admin
-				</Button>
+				
 			</SwipeableDrawer>
 			<IconButton onClick={() => setOpenDrawer(!openDrawer)}>
 				<MenuIcon />

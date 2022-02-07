@@ -29,16 +29,13 @@ public class Product implements Serializable {
 	private String productImagePath;
 	private String interiorImagePath;
 	private String exteriorImagePath;
-	@Column(columnDefinition = "LONGTEXT")
+	@Column(columnDefinition = "varchar(max)")
 	private String longDescription;
-	@Column(columnDefinition = "LONGTEXT")
+	@Column(columnDefinition = "varchar(max)")
 	private String exteriorDescription;
-	@Column(columnDefinition = "LONGTEXT")
+	@Column(columnDefinition = "varchar(max)")
 	private String interiorDescription;
 
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonIgnore
-	private List<CartItem> cartItemList;
 
 	
 
@@ -186,12 +183,5 @@ public class Product implements Serializable {
 		this.productBodyType = productBodyType;
 	}
 
-	public List<CartItem> getCartItemList() {
-		return cartItemList;
-	}
-
-	public void setCartItemList(List<CartItem> cartItemList) {
-		this.cartItemList = cartItemList;
-	}
 
 }

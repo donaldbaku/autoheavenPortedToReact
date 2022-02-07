@@ -20,7 +20,7 @@ const ViewProduct = (props) => {
 			<Container>
 				<Grid container spacing={2}>
 					<Grid item xs={12}>
-						<Card elevation={24}>
+						<Card elevation={0}>
 							<Container>
 								<Typography variant='h4' color='green'>
 									<b>{product.productName}</b>

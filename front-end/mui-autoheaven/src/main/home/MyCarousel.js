@@ -1,12 +1,17 @@
 import { connect } from 'react-redux';
 import Actions from '../dataStorage/Actions';
 import Carousel from 'react-bootstrap/Carousel';
-import { Card } from '@mui/material';
+import { Card, Slide } from '@mui/material';
 
 const MyCarousel = (props) => {
 	const { posts } = props;
 
 	return (
+		<Slide
+						in={true}
+						// style={{ transformOrigin: '0 0 0' }}
+						{...(true ? { timeout: 1000 } : {})}
+				>
 		<Card elevation={24}>
 			<Carousel key={'myCarousel'}>
 				{posts.map((item) => (
@@ -27,7 +32,8 @@ const MyCarousel = (props) => {
 					</Carousel.Item>
 				))}
 			</Carousel>
-		</Card>
+			</Card>
+			</Slide>
 	);
 };
 

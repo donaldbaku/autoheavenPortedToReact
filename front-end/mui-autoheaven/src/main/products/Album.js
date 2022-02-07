@@ -17,6 +17,7 @@ import { connect } from 'react-redux';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Actions from '../dataStorage/Actions';
 import { Link } from 'react-router-dom';
+import { Grow, Slide, Zoom } from '@mui/material';
 
 const theme = createTheme();
 
@@ -26,38 +27,45 @@ const Album = (props) => {
 		<Grid container spacing={4}>
 			{cards.map((card) => (
 				<Grid item key={card.productId} xs={12} sm={6} md={4}>
-					<Card
-						elevation={12}
-						sx={{
-							height: '100%',
-							display: 'flex',
-							flexDirection: 'column',
-						}}
+					<Grow
+						in={true}
+						style={{ transformOrigin: '0 0 0' }}
+						{...(true ? { timeout: 1000 } : {})}
 					>
-						<CardMedia
-							component='img'
-							height='200px'
-							image={card.productImagePath}
-							alt={card.name}
-						/>
-						<CardContent sx={{ flexGrow: 1 }}>
-							<Typography gutterBottom variant='h5' component='h2'>
-								{card.productName}
-							</Typography>
-							<Typography>{card.productDescription}</Typography>
-						</CardContent>
-						<CardActions>
-							<Button
-								size='small'
-								LinkComponent={Link}
-								to='/viewProduct'
-								onClick={() => props.getSingleProduct(card.productId)}
-							>
-								View
-							</Button>
-							<Button disabled={user ? false : true} size='small'>Add to cart</Button>
-						</CardActions>
-					</Card>
+						<Card
+							elevation={12}
+							sx={{
+								height: '100%',
+								display: 'flex',
+								flexDirection: 'column',
+							}}
+							TransitionComponent={Grow}
+						>
+							<CardMedia
+								component='img'
+								height='200px'
+								image={card.productImagePath}
+								alt={card.name}
+							/>
+							<CardContent sx={{ flexGrow: 1 }}>
+								<Typography gutterBottom variant='h5' component='h2'>
+									{card.productName}
+								</Typography>
+								<Typography>{card.productDescription}</Typography>
+							</CardContent>
+							<CardActions>
+								<Button
+									size='small'
+									LinkComponent={Link}
+									to='/viewProduct'
+									onClick={() => props.getSingleProduct(card.productId)}
+								>
+									View
+								</Button>
+								<Button disabled={user ? false : true} size='small'>Add to cart</Button>
+							</CardActions>
+						</Card>
+					</Grow>
 				</Grid>
 			))}
 		</Grid>
