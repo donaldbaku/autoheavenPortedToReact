@@ -22,7 +22,7 @@ const Featured = (props) => {
 							<Slide
 								in={true}
 								direction='right'
-								{...(true ? { timeout: 500 } : {})}
+								{...(true ? { timeout: 1000 } : {})}
 							>
 								<CardActionArea
 									LinkComponent={Link}

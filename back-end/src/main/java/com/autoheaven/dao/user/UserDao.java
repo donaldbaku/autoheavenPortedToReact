@@ -1,6 +1,7 @@
 package com.autoheaven.dao.user;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
@@ -14,15 +15,22 @@ import com.autoheaven.model.Users;
 
 @Repository
 @Transactional
-public class UserDao {
+public class UserDao  implements AutoheavenUserDao{
 
 	@Autowired
 	private EntityManager entityManager;
+	
+	@Override
+	public Optional<Users> getUserByEmail(String email) {
+		return null;
+		// return getAllUsers()
+		// .stream()
+		// .filter(user -> email.equals(user.getEmail or getUsername)
+		// .findFirst();
+	}
 
 	public void registerUser(Users user) throws Exception {
 		try {
-			user.setAuthority("user");
-			user.setEnabled(true);
 			entityManager.persist(user);
 
 		} catch (ConstraintViolationException c) {
@@ -39,10 +47,10 @@ public class UserDao {
 		if (userFromDB != null) {
 			if (password.equals(userFromDB.getPassword())) {
 				if (userFromDB.isEnabled()) {
-					userCred.put("email", userFromDB.getEmail());
+					userCred.put("email", userFromDB.getUsername());
 					userCred.put("firstName", userFromDB.getFirstName());
 					userCred.put("lastName", userFromDB.getLastName());
-					userCred.put("role", userFromDB.getAuthority());
+					userCred.put("role", userFromDB.getAuthorities().toString());
 				}
 			}
 		}

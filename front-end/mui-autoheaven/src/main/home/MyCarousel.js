@@ -10,7 +10,7 @@ const MyCarousel = (props) => {
 		<Slide
 						in={true}
 						// style={{ transformOrigin: '0 0 0' }}
-						{...(true ? { timeout: 1000 } : {})}
+						{...(true ? { timeout: 500 } : {})}
 				>
 		<Card elevation={24}>
 			<Carousel key={'myCarousel'}>
