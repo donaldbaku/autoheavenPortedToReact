@@ -1,11 +1,13 @@
 package com.autoheaven.dao.user;
 
-import java.util.Optional;
-
 import com.autoheaven.model.Users;
+import com.autoheaven.security.AutoheavenUserDetails;
 
 public interface AutoheavenUserDao {
 	
-	Optional<Users> getUserByEmail(String email);
+	AutoheavenUserDetails getUserByUsername(String email);
+	AutoheavenUserDetails registerUser(Users user);
+	AutoheavenUserDetails updateUserDetails(AutoheavenUserDetails user);
+	void deleteUser(AutoheavenUserDetails user);
 
 }

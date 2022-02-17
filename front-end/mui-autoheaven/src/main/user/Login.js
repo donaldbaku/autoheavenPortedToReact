@@ -31,7 +31,7 @@ const Login = (props) => {
 				method: 'GET',
 				url: `/user/login`,
 				params: {
-					email: user.email,
+					username: user.email,
 					password: user.password,
 				},
 			})
